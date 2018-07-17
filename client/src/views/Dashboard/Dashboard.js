@@ -459,7 +459,7 @@ class Dashboard extends Component {
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
 
     this.state = {
-      dropdownOpen: false,
+      applications: [],
       radioSelected: 2,
     };
   }
@@ -476,6 +476,12 @@ class Dashboard extends Component {
     });
   }
 
+  componentDidMount(){
+    fetch('/api/applications')
+      .then(res => res.json())
+      .then(applications => this.setState({applications:applications}, () => console.log("Fetched ",applications)));
+  }
+
   render() {
 
     return (
@@ -484,6 +490,14 @@ class Dashboard extends Component {
           <Col>
             <Card>
               <CardBody>
+              <Row className="align-items-center">
+                <Col col="12" xl className="mb-3 mb-xl-0">
+                  <h3>Recent loan applications</h3>
+                </Col>
+                <Col col="2" xl className="mb-3 mb-xl-0">
+                  <Button color="primary" style={{float:'right'}} size="lg">Add new application</Button><br/><br/><br/>
+                </Col>
+              </Row>
                 <Table hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">
                   <tr>
@@ -494,24 +508,26 @@ class Dashboard extends Component {
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td className="text-center">
-                      <div>1</div>
-                    </td>
-                    <td className="text-center">
-                      <div>10001</div>
-                    </td>
-                    <td className="text-center">
-                      <div className="clearfix">
-                          <strong>Test User 1</strong>
-                      </div>
-                    </td>
-                    <td className="text-center">
-                      <div className="clearfix">
-                          <strong>Good</strong>
-                      </div>
-                    </td>
-                  </tr>
+                  {this.state.applications.map((application, index) => (
+                    <tr>
+                      <td className="text-center">
+                        <div>{index+1}</div>
+                      </td>
+                      <td className="text-center">
+                        <div>{application.application_id}</div>
+                      </td>
+                      <td className="text-center">
+                        <div className="clearfix">
+                            <strong>{application.first_name} {application.last_name} </strong>
+                        </div>
+                      </td>
+                      <td className="text-center">
+                        <div className="clearfix">
+                            <strong>{application.loan_status}</strong>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
                   </tbody>
                 </Table>
               </CardBody>

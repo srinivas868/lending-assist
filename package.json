@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node index.js",
-    "server":"nodemon index.js",
-    "client":"npm start --prefix client",
-    "deploy":"concurrently \"npm run server\" \"npm run client\""
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "deploy": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "dependencies": {
     "concurrently": "^3.6.0",
     "express": "^4.16.3",
+    "mysql": "^2.15.0",
     "nodemon": "^1.17.5"
   }
 }
