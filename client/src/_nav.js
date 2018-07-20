@@ -7,7 +7,7 @@ export default {
     },
     {
       name: 'Manage',
-      url: '/',
+      url: '/applications/manage',
       icon: 'icon-puzzle',
     },
     {

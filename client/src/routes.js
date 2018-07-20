@@ -182,15 +182,26 @@ const User = Loadable({
   loading: Loading,
 });
 
+const NewApplication = Loadable({
+  loader: () => import('./views/Applications/Add'),
+  loading: Loading,
+});
+
+const ManageApplication = Loadable({
+  loader: () => import('./views/Applications/Manage'),
+  loading: Loading,
+});
+
+const Profile = Loadable({
+  loader: () => import('./views/Applications/Profile'),
+  loading: Loading,
+});
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/theme', exact: true, name: 'Theme', component: Colors },
-  { path: '/theme/colors', name: 'Colors', component: Colors },
-  { path: '/theme/typography', name: 'Typography', component: Typography },
   { path: '/base', exact: true, name: 'Base', component: Cards },
   { path: '/base/cards', name: 'Cards', component: Cards },
   { path: '/base/forms', name: 'Forms', component: Forms },
@@ -227,6 +238,9 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/applications/add', exact: true, name: 'Add new application', component: NewApplication },
+  { path: '/applications/manage', exact: true, name: 'Manage applications', component: ManageApplication },
+  { path: '/applications/profile/:id', exact: true, name: 'Applicant profile details', component: Profile },
 ];
 
 export default routes;
