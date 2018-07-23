@@ -29,7 +29,6 @@ import {
 class Profile extends Component {
   constructor(props) {
     super(props);
-
     //this.handleUploadFile = this.handleUploadFile.bind(this);
     this.toggleLoanInfo = this.toggleLoanInfo.bind(this);
     this.toggleLoanResults = this.toggleLoanResults.bind(this);

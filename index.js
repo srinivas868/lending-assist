@@ -8,6 +8,7 @@ var express = require('express')
 var serverConfig = require('./config')
 var fileUpload = require('express-fileupload');
 var saveFileController = require('./controllers/SaveFile')
+var formSubmitController = require('./controllers/FormSubmit')
 var dbConnection = require('./util/DbConnection')
 var mysql = require('mysql');
 const app = express();
@@ -64,6 +65,7 @@ app.post('/api/applications/profile', function(req,res){
 
 //activating controller
 saveFileController(app)
+formSubmitController(app)
 // start app
 app.listen(5000, (error) => {
   if (!error) {

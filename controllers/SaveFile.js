@@ -22,8 +22,7 @@ module.exports = function(app){
       console.log('File moved')
     });
 
-    //test db DbConnection
-    //convert csv to json
+    //convert csv to json/Save to db
     csv()
        .fromFile(csvFilePath)
        .then((jsonArray)=>{

@@ -4,7 +4,7 @@ import Loadable from 'react-loadable'
 import DefaultLayout from './containers/DefaultLayout';
 
 function Loading() {
-  return <div>Loading...</div>;
+  return <div><i className="fa fa-circle-o-notch fa-lg fa-spin mt-4"></i>Loading ......</div>;
 }
 
 const Breadcrumbs = Loadable({
@@ -197,6 +197,11 @@ const Profile = Loadable({
   loading: Loading,
 });
 
+const UpdateApplication = Loadable({
+  loader: () => import('./views/Applications/Update'),
+  loading: Loading,
+});
+
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -241,6 +246,7 @@ const routes = [
   { path: '/applications/add', exact: true, name: 'Add new application', component: NewApplication },
   { path: '/applications/manage', exact: true, name: 'Manage applications', component: ManageApplication },
   { path: '/applications/profile/:id', exact: true, name: 'Applicant profile details', component: Profile },
+  { path: '/applications/update/:id', exact: true, name: 'Update application', component: UpdateApplication },
 ];
 
 export default routes;
