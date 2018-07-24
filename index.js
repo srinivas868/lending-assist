@@ -47,6 +47,10 @@ app.get('/api/applications', function(req,res){
   dbConnection.connection.query('SELECT * from Applicants_Info_Table', function (error, results, fields) {
     if (error) throw error;
     //console.log('The solution is: ', results);
+    for(var i=0; i<results.length; i++)
+    {
+        results[i]['Full_Name'] = results[i]['First_Name']+" "+results[i]['Last_Name']
+    }
     res.json(results);
   });
 });

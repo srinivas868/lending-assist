@@ -21,11 +21,11 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppSidebarToggler className="d-md-down-none" display="lg" />
+        <AppSidebarToggler className="sidebar-minimizer" display="lg" />
         <AppNavbarBrand
           full={{ src: logo, width: 50, height: 50, alt: 'Watson Logo' }}
         />
-        <h4>IBM Watson</h4>
+        <h4>IBM Lending Assist</h4>
         <Nav className="ml-auto" navbar>
         </Nav>
         {/*<AppAsideToggler className="d-lg-none" mobile />*/}

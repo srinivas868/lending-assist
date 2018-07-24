@@ -11,6 +11,11 @@ export default {
       icon: 'icon-puzzle',
     },
     {
+      name: 'Add new application',
+      url: '/applications/add',
+      icon: 'icon-pencil',
+    },
+    {
       name: 'Logout',
       url: '/',
       icon: 'icon-logout',

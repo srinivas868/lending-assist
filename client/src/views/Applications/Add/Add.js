@@ -24,7 +24,9 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import application_info_dictionary from '../../../assets/application_info_dictionary.json';
+import classnames from 'classnames';
 
 class Add extends Component {
   constructor(props) {
@@ -33,13 +35,23 @@ class Add extends Component {
     this.toggleForm = this.toggleForm.bind(this)
     this.toggleUpload = this.toggleUpload.bind(this)
     this.handleUploadFile = this.handleUploadFile.bind(this)
+    this.toggle = this.toggle.bind(this)
     this.state = {
       collapseForm: false,
       collapseUpload: false,
       fadeIn: true,
       timeout: 300,
       status: 'Closed',
+      activeTab: '1',
     };
+  }
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+      });
+    }
   }
 
   toggleForm() {
@@ -91,23 +103,36 @@ class Add extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col xs="24" md="6" style={{margin:'0 auto'}}>
-            <Card>
+            <Card style={{width:'70%',margin:'0px auto'}}>
               <CardHeader>
                 <strong>ADD NEW APPLICATION</strong>
               </CardHeader>
               <br/>
-              <Button color="primary" onClick={this.toggleForm} style={{ marginBottom: '1rem' }}>Show form</Button>
-              <Collapse isOpen={this.state.collapseForm} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
-                <Form onSubmit={this.handleFormSubmit} method="post" encType="multipart/form-data" className="form-horizontal">
-                <CardBody>
+              <CardBody>
+                <p>Test description</p>
+                <Nav tabs>
+                  <NavItem>
+                    <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
+                      Form
+                    </NavLink>
+                  </NavItem>
+                  <NavItem>
+                    <NavLink className={classnames({ active: this.state.activeTab === '2' })} onClick={() => { this.toggle('2'); }}>
+                      Upload
+                    </NavLink>
+                  </NavItem>
+                </Nav>
+                <TabContent activeTab={this.state.activeTab}>
+                  <TabPane tabId="1">
+                    <Form onSubmit={this.handleFormSubmit} method="post" encType="multipart/form-data" className="form-horizontal">
+                    <CardBody>
                     <FormGroup row>
                       <Col md="4">
                         <Label htmlFor="first-name">First Name</Label>
                       </Col>
                       <Col xs="12" md="8">
-                        <Input type="text" id="first-name" name="first_name" placeholder="Enter a text" />
+                        <Input type="text" id="first-name" name="first_name" placeholder="Enter a text" required/>
+                        <FormText className="help-block">For example: Alex, Roy, etc.</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -116,6 +141,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="text" id="last-name" name="last_name" placeholder="Enter a text" />
+                        <FormText className="help-block">For example: Watson</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -124,6 +150,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="date" id="dob" name="dob" placeholder="date" />
+                        <FormText className="help-block">For example: 08/01/1990</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -224,8 +251,9 @@ class Add extends Component {
                           <InputGroupAddon addonType="prepend">
                             <InputGroupText>$</InputGroupText>
                           </InputGroupAddon>
-                          <Input type="number" id="loan-amount" name="loan_amount" placeholder="" />
+                          <Input type="number" id="loan-amount" name="loan_amount" placeholder="Enter a number" />
                         </InputGroup>
+                        <FormText className="help-block">For example: $10000</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -234,6 +262,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="number" id="pub-rec-bankruptcies" name="pub_rec_bankruptcies" placeholder="Enter a number" />
+                        <FormText className="help-block">For example: 10</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -242,11 +271,12 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <InputGroup className="input-prepend">
-                          <Input type="number" id="debt-to-income-ratio" name="debt_to_income_ratio" placeholder="" />
+                          <Input type="number" id="debt-to-income-ratio" name="debt_to_income_ratio" placeholder="Enter a number" />
                           <InputGroupAddon addonType="append">
                             <InputGroupText>%</InputGroupText>
                           </InputGroupAddon>
                         </InputGroup>
+                        <FormText className="help-block">For example: 23%</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -255,6 +285,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="number" id="open-accounts" name="open_accounts" placeholder="Enter a number" />
+                        <FormText className="help-block">For example: 2</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -263,6 +294,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="number" id="revoling-utilization" name="revoling_utilization" placeholder="Enter a number" />
+                        <FormText className="help-block">For example: 2</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -270,7 +302,13 @@ class Add extends Component {
                         <Label htmlFor="text-input">Annual income</Label>
                       </Col>
                       <Col xs="12" md="8">
-                        <Input type="number" id="annual-income" name="annual_income" placeholder="Enter a number" />
+                        <InputGroup className="input-prepend">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>$</InputGroupText>
+                          </InputGroupAddon>
+                          <Input type="number" id="annual-income" name="annual_income" placeholder="Enter a number" />
+                        </InputGroup>
+                        <FormText className="help-block">For example: $80000</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -279,6 +317,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="number" id="total-accounts" name="total_accounts" placeholder="Enter a number" />
+                        <FormText className="help-block">For example: 3</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -286,7 +325,13 @@ class Add extends Component {
                         <Label htmlFor="text-input">Employment length</Label>
                       </Col>
                       <Col xs="12" md="8">
-                        <Input type="number" id="employment-length" name="employment_length" placeholder="Enter a number" />
+                        <InputGroup className="input-prepend">
+                          <Input type="number" id="employment-length" name="employment_length" placeholder="Enter a number" />
+                          <InputGroupAddon addonType="append">
+                            <InputGroupText>years</InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                        <FormText className="help-block">For example: 4 years</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -295,6 +340,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="number" id="acc-now-delinq" name="acc_now_delinq" placeholder="Enter a number" />
+                        <FormText className="help-block">For example: 2</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -302,7 +348,13 @@ class Add extends Component {
                         <Label htmlFor="text-input">Delinquent amount</Label>
                       </Col>
                       <Col xs="12" md="8">
-                        <Input type="number" id="delinquent-amount" name="delinquent_amount" placeholder="Enter a number" />
+                        <InputGroup className="input-prepend">
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>$</InputGroupText>
+                          </InputGroupAddon>
+                          <Input type="number" id="delinquent-amount" name="delinquent_amount" placeholder="Enter a number" />
+                        </InputGroup>
+                        <FormText className="help-block">For example: $1000</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -311,6 +363,7 @@ class Add extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         <Input type="number" id="delinquent-2-years" name="delinquent_2_years" placeholder="Enter a number" />
+                        <FormText className="help-block">For example: 3</FormText>
                       </Col>
                     </FormGroup>
                 </CardBody>
@@ -325,10 +378,9 @@ class Add extends Component {
                   </Row>
                 </CardFooter>
                 </Form>
-              </Collapse>
-              <Button color="primary" onClick={this.toggleUpload} style={{ marginBottom: '1rem' }}>Upload file</Button>
-              <Collapse isOpen={this.state.collapseUpload} onEntering={this.onEntering} onEntered={this.onEntered} onExiting={this.onExiting} onExited={this.onExited}>
-                <Form id="upload-file" onSubmit={this.handleUploadFile} method="post" encType="multipart/form-data" className="form-horizontal">
+                  </TabPane>
+                  <TabPane tabId="2">
+                    <Form id="upload-file" onSubmit={this.handleUploadFile} method="post" encType="multipart/form-data" className="form-horizontal">
                   <CardBody>
                       <FormGroup row>
                         <Col md="4">
@@ -349,11 +401,11 @@ class Add extends Component {
                       </Col>
                     </Row>
                   </CardFooter>
-                </Form>
-              </Collapse>
+                    </Form>
+                  </TabPane>
+                </TabContent>
+                </CardBody>
             </Card>
-          </Col>
-        </Row>
       </div>
     );
   }
