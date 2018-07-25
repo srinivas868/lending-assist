@@ -13,7 +13,7 @@ export default {
     {
       name: 'Add new application',
       url: '/applications/add',
-      icon: 'icon-pencil',
+      icon: 'icon-user-follow',
     },
     {
       name: 'Logout',

@@ -61,7 +61,7 @@ class Manage extends Component {
       <div className="animated fadeIn">
         <Card>
           <CardHeader>
-            <Button color="primary" onClick={this.toggleNew} style={{ marginBottom: '1rem' }}>Show new applications</Button>
+            <Button color="primary" onClick={this.toggleNew} style={{ marginBottom: '1rem' }}>Show pending applications</Button>
           </CardHeader>
           <Collapse isOpen={this.state.collapseNew}>
             <CardBody>

@@ -23,7 +23,7 @@ import {
 import Widget03 from '../../views/Widgets/Widget03'
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips'
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
-//import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.js';
 
@@ -33,10 +33,10 @@ import '../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.m
 // import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
 // import 'https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css';
 
-var ReactBsTable = require('react-bootstrap-table');
-var BootstrapTable = ReactBsTable.BootstrapTable;
-var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
-var ReactBsTable = window.BootstrapTable;
+// var ReactBsTable = require('react-bootstrap-table');
+// var BootstrapTable = ReactBsTable.BootstrapTable;
+// var TableHeaderColumn = ReactBsTable.TableHeaderColumn;
+// var ReactBsTable = window.BootstrapTable;
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
@@ -60,7 +60,7 @@ function riskFormatter(cell, row) {
   {
     if(cell < 30)
       return (
-        <Progress animated color="success" value={cell} className="mb-3"><b>{cell}%</b></Progress>
+        <Progress animated color="success" value={cell} style={{'margin-bottom': '0rem !important'}} className="mb-3"><b>{cell}%</b></Progress>
       )
     else
       return (
@@ -136,7 +136,7 @@ class Dashboard extends Component {
                  <TableHeaderColumn dataField='Risk_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ riskFormatter } dataSort>Risk Prediction (%)</TableHeaderColumn>
                  <TableHeaderColumn dataField='Full_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Name</TableHeaderColumn>
                  <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Loan Amount ($)</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Application_ID' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
+                 <TableHeaderColumn dataField='Application_ID' thStyle={ { 'text-align': 'center',width:'10%' } } tdStyle={ { 'text-align': 'center',width:'10%' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
              </BootstrapTable>
                 {/*<Table id="example" hover responsive className="table-outline mb-0 d-none d-sm-table">
                   <thead className="thead-light">

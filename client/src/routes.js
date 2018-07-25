@@ -193,7 +193,12 @@ const ManageApplication = Loadable({
 });
 
 const Profile = Loadable({
-  loader: () => import('./views/Applications/Profile'),
+  loader: () => import('./views/Applications/Profile/Single'),
+  loading: Loading,
+});
+
+const MultiProfile = Loadable({
+  loader: () => import('./views/Applications/Profile/Multiple'),
   loading: Loading,
 });
 
@@ -246,6 +251,7 @@ const routes = [
   { path: '/applications/add', exact: true, name: 'Add new application', component: NewApplication },
   { path: '/applications/manage', exact: true, name: 'Manage applications', component: ManageApplication },
   { path: '/applications/profile/:id', exact: true, name: 'Applicant profile details', component: Profile },
+  { path: '/applications/multi-profile/:id', exact: true, name: 'Multiple applications profile', component: MultiProfile },
   { path: '/applications/update/:id', exact: true, name: 'Update application', component: UpdateApplication },
 ];
 

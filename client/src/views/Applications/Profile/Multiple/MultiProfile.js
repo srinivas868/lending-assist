@@ -29,7 +29,7 @@ import {
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
 
-class Profile extends Component {
+class MultiProfile extends Component {
   constructor(props) {
     super(props);
     //this.handleUploadFile = this.handleUploadFile.bind(this);
@@ -265,4 +265,4 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+export default MultiProfile;

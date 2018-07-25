@@ -23,44 +23,57 @@ module.exports = function(app){
     });
 
     //convert csv to json/Save to db
-    csv()
-       .fromFile(csvFilePath)
-       .then((jsonArray)=>{
-         //console.log(json);
-         jsonArray.forEach(function(json){
-           var query = "INSERT INTO Applicants_Info_Table(First_Name,Last_Name,Date_of_Birth,Occupation,"
-                    +"Telephone_Number,Application_Type,Loan_Amount,Loan_Grade,Loan_Sub_Grade,Home_Ownership,"
-                    +"Verification_Status,Purpose,Public_Record_Bankruptcies,Debt_to_Income_Ratio,Open_Account,"
-                    +"Revolving_Utilization,Annual_Income,Total_Accounts,Employment_Length,Account_Now_Delinquent,Delinquent_Amount,Delinquent_2_Years) "
-                    +"values('"+json.First_Name+"','"+json.Last_Name+"','"
-                    +json.Date_of_Birth+"','"+json.Occupation+"','"+json.Telephone_Number.replace(/-/g,'')+"','"
-                    +json.Application_Type+"','"+json.Loan_Amount+"','"+json.Loan_Grade+"','"
-                    +json.Loan_Sub_Grade+"','"+json.Home_Ownership+"','"+json.Verification_Status+"','"
-                    +json.Purpose+"','"+json.Public_Record_Bankruptcies+"','"+json.Debt_to_Income_Ratio+"','"
-                    +json.Open_Account+"','"+json.Revolving_Utilization+"','"+json.Annual_Income+"','"
-                    +json.Total_Accounts+"','"+json.Employment_Length+"','"+json.Account_Now_Delinquent+"','"
-                    +json.Delinquent_Amount+"','"+json.Delinquent_2_Years+"')"
+    dbConnection.connection.beginTransaction(function(err) {
+      if (err) { throw err; }
+      csv()
+         .fromFile(csvFilePath)
+         .then((jsonArray)=>{
+           //console.log(json);
+           jsonArray.forEach(function(json){
+             var query = "INSERT INTO Applicants_Info_Table(First_Name,Last_Name,Interest_Rate,Term,"
+                      +"FICO_Score,Installment,Address_State,Date_of_Birth,"
+                      +"Telephone_Number,Application_Type,Loan_Amount,Loan_Grade,Loan_Sub_Grade,Home_Ownership,"
+                      +"Verification_Status,Purpose,Public_Record_Bankruptcies,Debt_to_Income_Ratio,Open_Account,"
+                      +"Revolving_Utilization,Annual_Income,Total_Accounts,Employment_Length,Account_Now_Delinquent,Delinquent_Amount,Delinquent_2_Years) "
+                      +"values('"+json.First_Name+"','"+json.Last_Name+"','"
+                      +json.Interest_Rate+"','"+json.Term+"','"+json.FICO_Score+"','"+json.Installment+"','"+json.Address_State+"','"
+                      +json.Date_of_Birth+"','"+json.Telephone_Number.replace(/-/g,'')+"','"
+                      +json.Application_Type+"','"+json.Loan_Amount+"','"+json.Loan_Grade+"','"
+                      +json.Loan_Sub_Grade[1]+"','"+json.Home_Ownership+"','"+json.Verification_Status+"','"
+                      +json.Purpose+"','"+json.Public_Record_Bankruptcies+"','"+json.Debt_to_Income_Ratio+"','"
+                      +json.Open_Account+"','"+json.Revolving_Utilization+"','"+json.Annual_Income+"','"
+                      +json.Total_Accounts+"','"+json.Employment_Length+"','"+json.Account_Now_Delinquent+"','"
+                      +json.Delinquent_Amount+"','"+json.Delinquent_2_Years+"')"
 
-           //saving to db
-           dbConnection.connection.query(query, function (error) {
-             if (error) throw error;
-             console.log('Saved');
-           });
-           console.log("Query ",query)
-         })
-       });
+             //saving to db
+             dbConnection.connection.query(query, function (error,result) {
+               if (error) throw error;
+               console.log('Saved')
+               json['Application_ID'] = result.insertId
+             })
+          })
+          dbConnection.connection.commit(function(err) {
+            if (err) {
+              console.log('Error while committing!');
+              return dbConnection.connection.rollback(function() {
+                throw err;
+              });
+            }
+            res.json({'applications':jsonArray})
+            console.log('success!');
+          });
+      })
+    })
 
     //delete uploaded file
     fs.exists(csvFilePath, function(exists) {
         if (exists) {
-          fs.unlink(csvFilePath, function(err) {
-            if (err) {
-                console.log("Error while deleting file")
-            }
-            console.log('Deleted!!');
-          });
+          // fs.unlink(csvFilePath, function(err) {
+          //   if (err) console.log("Error while deleting file")
+          //   console.log('Deleted!!');
+          // });
         }
     });
-    res.json({"success":true})
+    //res.json({"success":true})
   });
 }
