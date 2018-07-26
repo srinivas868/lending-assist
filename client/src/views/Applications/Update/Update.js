@@ -195,16 +195,6 @@ class Update extends Component {
                     </FormGroup>
                     <FormGroup row>
                       <Col md="4">
-                        <Label htmlFor="date-input">Date of birth</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="date" id="dob" name="dob" value='{application.Date_of_Birth}' />
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
                         <Label htmlFor="select">Grade</Label>
                       </Col>
                       <Col xs="3" md="3">
@@ -339,6 +329,7 @@ class Update extends Component {
                         {this.state.applications.map((application,index) => (
                           <Input type="text" id="open-accounts" name="open_accounts" defaultValue={application.Open_Account} placeholder="Enter a number" />
                         ))}
+                        <FormText className="help-block">For example: 2</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -347,8 +338,14 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="text" id="revoling-utilization" defaultValue={application.Revolving_Utilization} name="revoling_utilization" placeholder="Enter a number" />
+                          <InputGroup>
+                            <Input type="text" id="revoling-utilization" defaultValue={application.Revolving_Utilization} name="revoling_utilization" placeholder="Enter a number" />
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>%</InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
                         ))}
+                        <FormText className="help-block">For example: 23%</FormText>
                       </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -357,7 +354,12 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="text" id="annual-income" defaultValue={application.Annual_Income} name="annual_income" placeholder="Enter a number" />
+                          <InputGroup>
+                          <InputGroupAddon addonType="prepend">
+                            <InputGroupText>$</InputGroupText>
+                          </InputGroupAddon>
+                            <Input type="text" id="annual-income" defaultValue={application.Annual_Income} name="annual_income" placeholder="Enter a number" />
+                          </InputGroup>
                         ))}
                       </Col>
                     </FormGroup>
@@ -377,7 +379,12 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="text" id="employment-length" defaultValue={application.Employment_Length} name="employment_length" placeholder="Enter a number" />
+                          <InputGroup className="input-prepend">
+                            <Input type="text" id="employment-length" defaultValue={application.Employment_Length} name="employment_length" placeholder="Enter a number" />
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>years</InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
                         ))}
                       </Col>
                     </FormGroup>

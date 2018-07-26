@@ -11,7 +11,11 @@ var saveFileController = require('./controllers/SaveFile')
 var formSubmitController = require('./controllers/FormSubmit')
 var riskPredictionController = require('./controllers/WatsonStudio/RiskPrediction')
 var dbConnection = require('./util/DbConnection')
-var mysql = require('mysql');
+var discovery = require('./util/WatsonDiscoveryConnection')
+var mysql = require('mysql')
+require('isomorphic-fetch')
+const queryString = require('query-string')
+const queryBuilder = require('./util/QueryBuilder')
 const app = express();
 
 //mysql connection
@@ -67,6 +71,28 @@ app.post('/api/applications/profile', function(req,res){
     res.json(results);
   });
 });
+
+app.post('/api/wds/query', function(req,res){
+  const query = req.body.query
+  console.log("Query ",query)
+  const environmentId = discovery.environmentId;
+  const collectionId = discovery.collectionId;
+  queryBuilder.setEnvironmentId(environmentId);
+  queryBuilder.setCollectionId(collectionId);
+  discovery.query(queryBuilder.search({ natural_language_query: query }))
+      .then(response => {
+          console.log("Query response ",response)
+          res.json(response)
+        })
+      .catch(error => {
+        if (error.message === 'Number of free queries per month exceeded') {
+          res.status(429).json(error);
+        } else {
+          //res.status(error.code).json(error)
+          console.log("Error ",error)
+        }
+      });
+})
 
 //activating controller
 saveFileController(app)

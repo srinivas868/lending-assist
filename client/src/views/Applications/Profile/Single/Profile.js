@@ -332,7 +332,7 @@ class Profile extends Component {
                           </tr>
                           <tr>
                             <td><strong>ROI </strong></td>
-                            <td align="center">$444</td>
+                            <td align="center"></td>
                           </tr>
                         </tbody>
                       </Table>
