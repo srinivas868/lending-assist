@@ -1,0 +1,6 @@
+{
+  "name": "Watson Discovery Service",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./WDS.js"
+}

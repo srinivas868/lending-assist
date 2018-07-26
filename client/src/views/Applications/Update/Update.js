@@ -110,6 +110,91 @@ class Update extends Component {
                     </FormGroup>
                     <FormGroup row>
                       <Col md="4">
+                          <Label htmlFor="text-input">Loan amount</Label>
+                      </Col>
+                      <Col xs="12" md="8">
+                        {this.state.applications.map((application,index) => (
+                          <InputGroup className="input-prepend">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>$</InputGroupText>
+                            </InputGroupAddon>
+                            <Input type="text" id="loan-amount" defaultValue={application.Loan_Amount} name="loan_amount" placeholder="" />
+                          </InputGroup>
+                        ))}
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="4">
+                        <Label htmlFor="interest-rate">Interest rate</Label>
+                      </Col>
+                      <Col xs="12" md="8">
+                        {this.state.applications.map((application,index) => (
+                          <InputGroup className="input-prepend">
+                            <Input type="text" id="interest-rate" defaultValue={application.Interest_Rate} name="interest_rate" placeholder="Enter a number" />
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText>%</InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                      ))}
+                        <FormText className="help-block">For example: 12%</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="4">
+                        <Label htmlFor="term">Term</Label>
+                      </Col>
+                      <Col xs="12" md="8">
+                        {this.state.applications.map((application,index) => (
+                          <InputGroup className="input-prepend">
+                            <Input type="text" id="term" defaultValue={application.Term} name="term" placeholder="Enter a number" />
+                            <InputGroupAddon addonType="append">
+                              <InputGroupText>months</InputGroupText>
+                            </InputGroupAddon>
+                          </InputGroup>
+                        ))}
+                        <FormText className="help-block">For example: 24 months</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="4">
+                        <Label htmlFor="last-name">FICO Score</Label>
+                      </Col>
+                      <Col xs="12" md="8">
+                        {this.state.applications.map((application,index) => (
+                          <Input type="text" id="fico-score" defaultValue={application.FICO_Score} name="fico_score" placeholder="Enter a number" />
+                        ))}
+                        <FormText className="help-block">For example: 724</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="4">
+                        <Label htmlFor="installment">Installment</Label>
+                      </Col>
+                      <Col xs="12" md="8">
+                        {this.state.applications.map((application,index) => (
+                          <InputGroup className="input-prepend">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>$</InputGroupText>
+                            </InputGroupAddon>
+                            <Input type="text" id="installment" defaultValue={application.Installment} name="installment" placeholder="Enter a number" />
+                          </InputGroup>
+                        ))}
+                      <FormText className="help-block">For example: $300</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="4">
+                        <Label htmlFor="last-name">Log Annual Income</Label>
+                      </Col>
+                      <Col xs="12" md="8">
+                        {this.state.applications.map((application,index) => (
+                          <Input type="text" id="log-annual-income" defaultValue={application.Log_Annual_Income} name="log_annual_income" placeholder="Enter a number" />
+                        ))}
+                        <FormText className="help-block">For example: 4.6</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col md="4">
                         <Label htmlFor="date-input">Date of birth</Label>
                       </Col>
                       <Col xs="12" md="8">
@@ -223,26 +308,11 @@ class Update extends Component {
                     </FormGroup>
                     <FormGroup row>
                       <Col md="4">
-                          <Label htmlFor="text-input">Loan amount</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <InputGroup className="input-prepend">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>$</InputGroupText>
-                            </InputGroupAddon>
-                            <Input type="number" id="loan-amount" defaultValue={application.Loan_Amount} name="loan_amount" placeholder="" />
-                          </InputGroup>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
                         <Label htmlFor="text-input">Public record bankruptcies</Label>
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="pub-rec-bankruptcies" defaultValue={application.Public_Record_Bankruptcies} name="pub_rec_bankruptcies" placeholder="Enter a number" />
+                          <Input type="text" id="pub-rec-bankruptcies" defaultValue={application.Public_Record_Bankruptcies} name="pub_rec_bankruptcies" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -253,7 +323,7 @@ class Update extends Component {
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
                           <InputGroup className="input-prepend">
-                            <Input type="number" id="debt-to-income-ratio" defaultValue={application.Debt_to_Income_Ratio} name="debt_to_income_ratio" placeholder="" />
+                            <Input type="text" id="debt-to-income-ratio" defaultValue={application.Debt_to_Income_Ratio} name="debt_to_income_ratio" placeholder="" />
                             <InputGroupAddon addonType="append">
                               <InputGroupText>%</InputGroupText>
                             </InputGroupAddon>
@@ -267,7 +337,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="open-accounts" name="open_accounts" defaultValue={application.Open_Account} placeholder="Enter a number" />
+                          <Input type="text" id="open-accounts" name="open_accounts" defaultValue={application.Open_Account} placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -277,7 +347,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="revoling-utilization" defaultValue={application.Revolving_Utilization} name="revoling_utilization" placeholder="Enter a number" />
+                          <Input type="text" id="revoling-utilization" defaultValue={application.Revolving_Utilization} name="revoling_utilization" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -287,7 +357,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="annual-income" defaultValue={application.Annual_Income} name="annual_income" placeholder="Enter a number" />
+                          <Input type="text" id="annual-income" defaultValue={application.Annual_Income} name="annual_income" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -297,7 +367,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="total-accounts" defaultValue={application.Total_Accounts} name="total_accounts" placeholder="Enter a number" />
+                          <Input type="text" id="total-accounts" defaultValue={application.Total_Accounts} name="total_accounts" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -307,7 +377,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="employment-length" defaultValue={application.Employment_Length} name="employment_length" placeholder="Enter a number" />
+                          <Input type="text" id="employment-length" defaultValue={application.Employment_Length} name="employment_length" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -317,7 +387,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="acc-now-delinq" defaultValue={application.Account_Now_Delinquent} name="acc_now_delinq" placeholder="Enter a number" />
+                          <Input type="text" id="acc-now-delinq" defaultValue={application.Account_Now_Delinquent} name="acc_now_delinq" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -327,7 +397,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="delinquent-amount" defaultValue={application.Delinquent_Amount} name="delinquent_amount" placeholder="Enter a number" />
+                          <Input type="text" id="delinquent-amount" defaultValue={application.Delinquent_Amount} name="delinquent_amount" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>
@@ -337,7 +407,7 @@ class Update extends Component {
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="number" id="delinquent-2-years" defaultValue={application.Delinquent_2_Years} name="delinquent_2_years" placeholder="Enter a number" />
+                          <Input type="text" id="delinquent-2-years" defaultValue={application.Delinquent_2_Years} name="delinquent_2_years" placeholder="Enter a number" />
                         ))}
                       </Col>
                     </FormGroup>

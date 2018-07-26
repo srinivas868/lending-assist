@@ -23,6 +23,7 @@ import {
   InputGroupText,
   Label,
   Row,
+  Progress,
   Table,
 } from 'reactstrap';
 
@@ -32,18 +33,23 @@ import classnames from 'classnames';
 class Profile extends Component {
   constructor(props) {
     super(props);
-    //this.handleUploadFile = this.handleUploadFile.bind(this);
+    this.setPredictionOutput = this.setPredictionOutput.bind(this);
     this.toggleLoanInfo = this.toggleLoanInfo.bind(this);
     this.toggleLoanResults = this.toggleLoanResults.bind(this);
+    this.handleRunPrediction = this.handleRunPrediction.bind(this);
     this.state = {
       collapseLoanInfo: false,
       collapseResults: false,
+      collapseNoPrediction: false,
+      collapsePrediction: false,
       fadeIn: true,
       timeout: 300,
       status: 'Closed',
       applications: [],
       profileId: this.props.match.params.id,
       activeTab: '1',
+      risk_score: '',
+      result:null
     };
   }
 
@@ -62,6 +68,11 @@ class Profile extends Component {
       });
   }
 
+  setPredictionOutput(result, risk_score) {
+    this.setState(
+      { result: result, risk_score: risk_score, collapseNoPrediction:false,collapsePrediction:true })
+  }
+
   toggleLoanResults() {
     this.setState(
       { collapseLoanInfo: false,
@@ -77,8 +88,36 @@ class Profile extends Component {
         method: 'POST',
         body: data,
         })
-      .then(res => res.json())
-      .then(applications => this.setState({applications:applications}, () => console.log("Fetched ")));
+      .then((response) => {
+      response.json().then((results) => {
+        this.setState({applications:results,risk_score:results[0].Risk_Score})
+        if(this.state.risk_score > 0){
+          this.setState({collapseNoPrediction:false,collapsePrediction:true})
+        }
+        else{
+          this.setState({collapseNoPrediction:true,collapsePrediction:false})
+        }
+      })
+    })
+    //  .then(applications => this.setState({applications:applications,risk_score:applications[0].Risk_Score}, () => console.log("Fetched ")));
+  }
+
+  handleRunPrediction(){
+    const data = new FormData()
+    console.log("App ",this.state.applications[0])
+    data.append('application', JSON.stringify( this.state.applications[0]))
+    fetch('/api/watson-studio/risk-prediction', {
+        method: 'POST',
+        body: data,
+        }).then((response) => {
+        response.json().then((body) => {
+          console.log("Body ",body.result)
+          this.setPredictionOutput(body.result, body.risk_score)
+          //this.setState({ result: body.result })
+          this.toggle('2')
+        });
+      });
+    //window.location.href = '/#/applications/profile'
   }
 
   render() {
@@ -136,8 +175,32 @@ class Profile extends Component {
                           ))}
                           {this.state.applications.map((application) => (
                             <tr>
-                              <td><strong>Occupation :</strong></td>
-                              <td>{application.Occupation}</td>
+                              <td><strong>Interest rate :</strong></td>
+                              <td>{application.Interest_Rate}%</td>
+                            </tr>
+                          ))}
+                          {this.state.applications.map((application) => (
+                            <tr>
+                              <td><strong>Term :</strong></td>
+                              <td>{application.Term} months</td>
+                            </tr>
+                          ))}
+                          {this.state.applications.map((application) => (
+                            <tr>
+                              <td><strong>FICO Score :</strong></td>
+                              <td>{application.FICO_Score}</td>
+                            </tr>
+                          ))}
+                          {this.state.applications.map((application) => (
+                            <tr>
+                              <td><strong>Installment :</strong></td>
+                              <td>${application.Installment} per month</td>
+                            </tr>
+                          ))}
+                          {this.state.applications.map((application) => (
+                            <tr>
+                              <td><strong>Log Annual Income :</strong></td>
+                              <td>{application.Log_Annual_Income}</td>
                             </tr>
                           ))}
                           {this.state.applications.map((application) => (
@@ -245,14 +308,35 @@ class Profile extends Component {
                       </tbody>
                     </Table>
                     <div align="center">
-                      <Button color="primary" style={{ marginBottom: '1rem',margin:'0 auto',width: '50%' }}>Run prediction</Button>
+                      <Button color="primary" onClick={this.handleRunPrediction} style={{ marginBottom: '1rem',margin:'0 auto',width: '50%' }}>Run prediction</Button>
                     </div>
                   </TabPane>
                   <TabPane tabId="2">
-                    <h4>Prediction results</h4>
-                    <Table responsive>
-
-                    </Table>
+                    <h4>Prediction results</h4><br/>
+                    <Collapse isOpen={this.state.collapseNoPrediction}>
+                      <Row>
+                        <Col col="12" xl className="mb-3 mb-xl-0">
+                          <p>You have not run the prediction yet. Use the button on the right</p>
+                        </Col>
+                        <Col col="2" xl className="mb-3 mb-xl-0">
+                          <Button color="primary" onClick={this.handleRunPrediction} style={{ float:'right',marginBottom: '1rem',margin:'0 auto',width: '50%' }}>Run prediction</Button>
+                        </Col>
+                      </Row>
+                    </Collapse>
+                    <Collapse isOpen={this.state.collapsePrediction}>
+                      <Table responsive>
+                        <tbody>
+                          <tr>
+                            <td><strong>Risk Prediction </strong></td>
+                            <td><Progress animated color="success" value={this.state.risk_score} style={{'margin-bottom': '0rem !important'}} className="mb-3"><b>{this.state.risk_score}%</b></Progress></td>
+                          </tr>
+                          <tr>
+                            <td><strong>ROI </strong></td>
+                            <td align="center">$444</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Collapse>
                   </TabPane>
                   <TabPane tabId="3">
                     <Form id="comments" onSubmit={this.handleCommentsSubmit} method="post" encType="multipart/form-data" className="form-horizontal">

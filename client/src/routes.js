@@ -197,13 +197,13 @@ const Profile = Loadable({
   loading: Loading,
 });
 
-const MultiProfile = Loadable({
-  loader: () => import('./views/Applications/Profile/Multiple'),
+const UpdateApplication = Loadable({
+  loader: () => import('./views/Applications/Update'),
   loading: Loading,
 });
 
-const UpdateApplication = Loadable({
-  loader: () => import('./views/Applications/Update'),
+const WDS = Loadable({
+  loader: () => import('./views/WDS/WDS'),
   loading: Loading,
 });
 
@@ -251,8 +251,8 @@ const routes = [
   { path: '/applications/add', exact: true, name: 'Add new application', component: NewApplication },
   { path: '/applications/manage', exact: true, name: 'Manage applications', component: ManageApplication },
   { path: '/applications/profile/:id', exact: true, name: 'Applicant profile details', component: Profile },
-  { path: '/applications/multi-profile/:id', exact: true, name: 'Multiple applications profile', component: MultiProfile },
   { path: '/applications/update/:id', exact: true, name: 'Update application', component: UpdateApplication },
+  { path: '/wds', exact: true, name: 'Watson Discovery Service', component: WDS },
 ];
 
 export default routes;

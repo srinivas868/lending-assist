@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Watson Discovery',
-      url: '/',
+      url: '/wds',
       icon: 'icon-pie-chart',
     },
     {

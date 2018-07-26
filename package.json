@@ -17,6 +17,7 @@
   "author": "Srinivas Sangishetty",
   "license": "ISC",
   "dependencies": {
+    "btoa": "^1.2.1",
     "concurrently": "^3.6.0",
     "csvtojson": "^2.0.6",
     "express": "^4.16.3",
@@ -26,6 +27,7 @@
     "mysql": "^2.15.0",
     "nodemon": "^1.17.5",
     "path": "^0.12.7",
-    "react-bs-datatable": "^1.2.3"
+    "react-bs-datatable": "^1.2.3",
+    "xmlhttprequest": "^1.8.0"
   }
 }

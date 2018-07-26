@@ -212,6 +212,15 @@ class Add extends Component {
                         </FormGroup>
                         <FormGroup row>
                           <Col md="4">
+                            <Label htmlFor="last-name">Log Annual Income</Label>
+                          </Col>
+                          <Col xs="12" md="8">
+                            <Input type="number" id="log-annual-income" name="log_annual_income" placeholder="Enter a number" />
+                            <FormText className="help-block">For example: 4.6</FormText>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col md="4">
                             <Label htmlFor="date-input">Date of birth</Label>
                           </Col>
                           <Col xs="12" md="8">
