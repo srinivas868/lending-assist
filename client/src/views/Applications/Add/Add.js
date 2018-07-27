@@ -161,11 +161,25 @@ class Add extends Component {
                         </FormGroup>
                         <FormGroup row>
                           <Col md="4">
+                              <Label htmlFor="text-input">Loan amount</Label>
+                          </Col>
+                          <Col xs="12" md="8">
+                            <InputGroup className="input-prepend">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>$</InputGroupText>
+                              </InputGroupAddon>
+                              <Input type="number" id="loan-amount" name="loan_amount" placeholder="Enter a number" />
+                            </InputGroup>
+                            <FormText className="help-block">For example: $10000</FormText>
+                          </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                          <Col md="4">
                             <Label htmlFor="interest-rate">Interest rate</Label>
                           </Col>
                           <Col xs="12" md="8">
                             <InputGroup className="input-prepend">
-                              <Input type="number" id="interest-rate" name="interest_rate" placeholder="Enter a number" />
+                              <Input type="text" id="interest-rate" name="interest_rate" placeholder="Enter a number" />
                               <InputGroupAddon addonType="append">
                                 <InputGroupText>%</InputGroupText>
                               </InputGroupAddon>
@@ -179,7 +193,7 @@ class Add extends Component {
                           </Col>
                           <Col xs="12" md="8">
                           <InputGroup className="input-prepend">
-                            <Input type="number" id="term" name="term" placeholder="Enter a number" />
+                            <Input type="text" id="term" name="term" placeholder="Enter a number" />
                             <InputGroupAddon addonType="append">
                               <InputGroupText>months</InputGroupText>
                             </InputGroupAddon>
@@ -192,7 +206,7 @@ class Add extends Component {
                             <Label htmlFor="last-name">FICO Score</Label>
                           </Col>
                           <Col xs="12" md="8">
-                            <Input type="number" id="fico-score" name="fico_score" placeholder="Enter a number" />
+                            <Input type="text" id="fico-score" name="fico_score" placeholder="Enter a number" />
                             <FormText className="help-block">For example: 724</FormText>
                           </Col>
                         </FormGroup>
@@ -205,7 +219,7 @@ class Add extends Component {
                             <InputGroupAddon addonType="prepend">
                               <InputGroupText>$</InputGroupText>
                             </InputGroupAddon>
-                            <Input type="number" id="installment" name="installment" placeholder="Enter a number" />
+                            <Input type="text" id="installment" name="installment" placeholder="Enter a number" />
                           </InputGroup>
                           <FormText className="help-block">For example: $300</FormText>
                           </Col>
@@ -215,11 +229,11 @@ class Add extends Component {
                             <Label htmlFor="last-name">Log Annual Income</Label>
                           </Col>
                           <Col xs="12" md="8">
-                            <Input type="number" id="log-annual-income" name="log_annual_income" placeholder="Enter a number" />
+                            <Input type="text" id="log-annual-income" name="log_annual_income" placeholder="Enter a number" />
                             <FormText className="help-block">For example: 4.6</FormText>
                           </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        {/*<FormGroup row>
                           <Col md="4">
                             <Label htmlFor="date-input">Date of birth</Label>
                           </Col>
@@ -316,27 +330,13 @@ class Add extends Component {
                               ))}
                             </Input>
                           </Col>
-                        </FormGroup>
-                        <FormGroup row>
-                          <Col md="4">
-                              <Label htmlFor="text-input">Loan amount</Label>
-                          </Col>
-                          <Col xs="12" md="8">
-                            <InputGroup className="input-prepend">
-                              <InputGroupAddon addonType="prepend">
-                                <InputGroupText>$</InputGroupText>
-                              </InputGroupAddon>
-                              <Input type="number" id="loan-amount" name="loan_amount" placeholder="Enter a number" />
-                            </InputGroup>
-                            <FormText className="help-block">For example: $10000</FormText>
-                          </Col>
-                        </FormGroup>
+                        </FormGroup>*/}
                         <FormGroup row>
                           <Col md="4">
                             <Label htmlFor="text-input">Public record bankruptcies</Label>
                           </Col>
                           <Col xs="12" md="8">
-                            <Input type="number" id="pub-rec-bankruptcies" name="pub_rec_bankruptcies" placeholder="Enter a number" />
+                            <Input type="text" id="pub-rec-bankruptcies" name="pub_rec_bankruptcies" placeholder="Enter a number" />
                             <FormText className="help-block">For example: 10</FormText>
                           </Col>
                         </FormGroup>
@@ -346,7 +346,7 @@ class Add extends Component {
                           </Col>
                           <Col xs="12" md="8">
                             <InputGroup className="input-prepend">
-                              <Input type="number" id="debt-to-income-ratio" name="debt_to_income_ratio" placeholder="Enter a number" />
+                              <Input type="text" id="debt-to-income-ratio" name="debt_to_income_ratio" placeholder="Enter a number" />
                               <InputGroupAddon addonType="append">
                                 <InputGroupText>%</InputGroupText>
                               </InputGroupAddon>
@@ -354,7 +354,7 @@ class Add extends Component {
                             <FormText className="help-block">For example: 23%</FormText>
                           </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        {/*<FormGroup row>
                           <Col md="4">
                             <Label htmlFor="text-input">Number of open accounts</Label>
                           </Col>
@@ -394,14 +394,14 @@ class Add extends Component {
                             <Input type="number" id="total-accounts" name="total_accounts" placeholder="Enter a number" />
                             <FormText className="help-block">For example: 3</FormText>
                           </Col>
-                        </FormGroup>
+                        </FormGroup>*/}
                         <FormGroup row>
                           <Col md="4">
                             <Label htmlFor="text-input">Employment length</Label>
                           </Col>
                           <Col xs="12" md="8">
                             <InputGroup className="input-prepend">
-                              <Input type="number" id="employment-length" name="employment_length" placeholder="Enter a number" />
+                              <Input type="text" id="employment-length" name="employment_length" placeholder="Enter a number" />
                               <InputGroupAddon addonType="append">
                                 <InputGroupText>years</InputGroupText>
                               </InputGroupAddon>
@@ -409,7 +409,7 @@ class Add extends Component {
                             <FormText className="help-block">For example: 4 years</FormText>
                           </Col>
                         </FormGroup>
-                        <FormGroup row>
+                        {/*<FormGroup row>
                           <Col md="4">
                             <Label htmlFor="text-input">Account now delinquent</Label>
                           </Col>
@@ -440,7 +440,7 @@ class Add extends Component {
                             <Input type="number" id="delinquent-2-years" name="delinquent_2_years" placeholder="Enter a number" />
                             <FormText className="help-block">For example: 3</FormText>
                           </Col>
-                        </FormGroup>
+                        </FormGroup>*/}
                       </CardBody>
                       <CardFooter>
                         <Row className="align-items-center">

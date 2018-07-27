@@ -37,6 +37,8 @@ class Profile extends Component {
     this.toggleLoanInfo = this.toggleLoanInfo.bind(this);
     this.toggleLoanResults = this.toggleLoanResults.bind(this);
     this.handleRunPrediction = this.handleRunPrediction.bind(this);
+    this.handleCommentsSubmit = this.handleCommentsSubmit.bind(this)
+    this.toggleComments = this.toggleComments.bind(this)
     this.state = {
       collapseLoanInfo: false,
       collapseResults: false,
@@ -49,7 +51,10 @@ class Profile extends Component {
       profileId: this.props.match.params.id,
       activeTab: '1',
       risk_score: '',
-      result:null
+      result:null,
+      collapseCommentsForm: false,
+      collapseCommentsContent: false,
+      comments: ''
     };
   }
 
@@ -80,6 +85,10 @@ class Profile extends Component {
       });
   }
 
+  toggleComments(){
+    this.setState({collapseCommentsContent:!this.state.collapseCommentsContent,collapseCommentsForm:!this.state.collapseCommentsForm})
+  }
+
   componentDidMount(){
     const data = new FormData()
     console.log("Mount ",this.state.profileId)
@@ -91,6 +100,10 @@ class Profile extends Component {
       .then((response) => {
       response.json().then((results) => {
         this.setState({applications:results,risk_score:results[0].Risk_Score})
+        this.setState({collapseCommentsContent:results[0].Comments==''?false:true})
+        this.setState({collapseCommentsForm:results[0].Comments==''?true:false})
+        this.setState({comments:results[0].Comments})
+        console.log("Comments ",this.state.comments)
         if(this.state.risk_score > 0){
           this.setState({collapseNoPrediction:false,collapsePrediction:true})
         }
@@ -111,7 +124,7 @@ class Profile extends Component {
         body: data,
         }).then((response) => {
         response.json().then((body) => {
-          console.log("Body ",body.result)
+          //console.log("Body ",body.result)
           this.setPredictionOutput(body.result, body.risk_score)
           //this.setState({ result: body.result })
           this.toggle('2')
@@ -119,6 +132,22 @@ class Profile extends Component {
       });
     //window.location.href = '/#/applications/profile'
   }
+
+  handleCommentsSubmit(event){
+    const data = new FormData(event.target)
+    event.preventDefault()
+    console.log("Handle ",data.comments)
+    fetch('/api/comments/form-submit', {
+      method: 'POST',
+      body: data,
+      }).then((response) => {
+      response.json().then((body) => {
+        this.toggleComments()
+        this.setState({comments:body.comments})
+      });
+    });
+  //window.location.href = '/#/applications/profile'
+}
 
   render() {
     return (
@@ -203,7 +232,7 @@ class Profile extends Component {
                               <td>{application.Log_Annual_Income}</td>
                             </tr>
                           ))}
-                          {this.state.applications.map((application) => (
+                          {/*{this.state.applications.map((application) => (
                             <tr>
                               <td><strong>Telephone number :</strong></td>
                               <td>{application.Telephone_Number}</td>
@@ -244,7 +273,7 @@ class Profile extends Component {
                               <td><strong>Purpose :</strong></td>
                               <td>{application.Purpose}</td>
                             </tr>
-                          ))}
+                          ))}*/}
                           {this.state.applications.map((application) => (
                             <tr>
                               <td><strong>Public record bankruptcies :</strong></td>
@@ -257,7 +286,7 @@ class Profile extends Component {
                               <td>{application.Debt_to_Income_Ratio}%</td>
                             </tr>
                           ))}
-                          {this.state.applications.map((application) => (
+                          {/*{this.state.applications.map((application) => (
                             <tr>
                               <td><strong>Number of open accounts :</strong></td>
                               <td>{application.Open_Account}</td>
@@ -280,14 +309,14 @@ class Profile extends Component {
                               <td><strong>Total number of accounts :</strong></td>
                               <td>{application.Total_Accounts}</td>
                             </tr>
-                          ))}
+                          ))}*/}
                           {this.state.applications.map((application,index) => (
                             <tr key={index}>
                               <td><strong>Employment length :</strong></td>
                               <td>{application.Employment_Length} years</td>
                             </tr>
                           ))}
-                          {this.state.applications.map((application,index) => (
+                          {/*{this.state.applications.map((application,index) => (
                             <tr key={index}>
                               <td><strong>Account now delinquent :</strong></td>
                               <td>{application.Account_Now_Delinquent}</td>
@@ -304,7 +333,7 @@ class Profile extends Component {
                               <td><strong>Delinquent 2 Years :</strong></td>
                               <td>{application.Delinquent_2_Years}</td>
                             </tr>
-                          ))}
+                          ))}*/}
                       </tbody>
                     </Table>
                     <div align="center">
@@ -339,29 +368,46 @@ class Profile extends Component {
                     </Collapse>
                   </TabPane>
                   <TabPane tabId="3">
-                    <Form id="comments" onSubmit={this.handleCommentsSubmit} method="post" encType="multipart/form-data" className="form-horizontal">
-                      <CardBody>
+                    <Collapse isOpen={this.state.collapseCommentsForm}>
+                      <Form id="comments" onSubmit={this.handleCommentsSubmit} method="post" encType="multipart/form-data" className="form-horizontal">
+                        <CardBody>
                           <FormGroup row>
                             <Col md="4">
-                              <Label htmlFor="file-input">Comments</Label>
+                              <Label htmlFor="file-input">Feedback</Label>
                             </Col>
                             <Col xs="12" md="8">
                             <Input type="textarea" name="comments" id="comments" rows="9"
                                    placeholder="Write something..." />
                             </Col>
                           </FormGroup>
-                      </CardBody>
-                      <CardFooter>
-                        <Row className="align-items-center">
-                          <Col col="12" xl className="mb-3 mb-xl-0">
-                            <Button type="submit" block color="success"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                          </Col>
-                          <Col col="12" xl className="mb-3 mb-xl-0">
-                            <Button type="reset" block color="danger"><i className="fa fa-ban"></i> Reset</Button>
-                          </Col>
-                        </Row>
-                      </CardFooter>
-                    </Form>
+                        </CardBody>
+                        <CardFooter>
+                          <Row className="align-items-center">
+                            <Col col="12" xl className="mb-3 mb-xl-0">
+                              <Button type="submit" block color="success"><i className="fa fa-dot-circle-o"></i> Submit</Button>
+                            </Col>
+                            <Col col="12" xl className="mb-3 mb-xl-0">
+                              <Button type="reset" onClick={this.toggleComments} block color="danger"><i className="fa fa-ban"></i> Cancel</Button>
+                            </Col>
+                          </Row>
+                        </CardFooter>
+                        {this.state.applications.map((application) => (
+                          <Input type="hidden" name="application_id" id="application-id"
+                                 value={application.Application_ID} />
+                        ))}
+                      </Form>
+                    </Collapse>
+                    <Collapse isOpen={this.state.collapseCommentsContent}>
+                      <Button color="primary" onClick={this.toggleComments} style={{float:'right'}} size="sm">Update comments</Button>
+                      <Table responsive>
+                        <tbody>
+                          <tr>
+                            <td><strong>Comments </strong></td>
+                            <td>{this.state.comments}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
+                    </Collapse>
                   </TabPane>
                 </TabContent>
               </CardBody>

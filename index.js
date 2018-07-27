@@ -64,7 +64,7 @@ app.get('/api/applications', function(req,res){
 app.post('/api/applications/profile', function(req,res){
   var profileId = req.body.profileId
   //var profileId = 1
-  console.log('received ',profileId)
+  //console.log('received ',profileId)
   dbConnection.connection.query("SELECT * from Applicants_Info_Table where Application_ID='"+profileId+"'", function (error, results, fields) {
     if (error) throw error;
     console.log('Profile: ', results);
@@ -81,7 +81,7 @@ app.post('/api/wds/query', function(req,res){
   queryBuilder.setCollectionId(collectionId);
   discovery.query(queryBuilder.search({ natural_language_query: query }))
       .then(response => {
-          console.log("Query response ",response)
+          //console.log("Query response ",response)
           res.json(response)
         })
       .catch(error => {

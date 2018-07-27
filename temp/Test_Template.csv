@@ -1,7 +1,7 @@
-﻿First_Name,Last_Name,Interest_Rate,Term,FICO_Score,Installment,Date_of_Birth,Address_State,Telephone_Number,Application_Type,Loan_Amount,Loan_Grade,Loan_Sub_Grade,Home_Ownership,Verification_Status,Purpose,Public_Record_Bankruptcies,Debt_to_Income_Ratio,Open_Account,Revolving_Utilization,Annual_Income,Total_Accounts,Employment_Length,Account_Now_Delinquent,Delinquent_Amount,Delinquent_2_Years
-Ryan,Bellisimo,12,36,778,310,1992-05-01,TX,512-111-1234,Personal,10000,A,A1,RENT,Verified,Refinance,232,62.33,12,112.62,1149.98,2,2,1343.43,5,3
-Khyati,G,10,25,655,310,1992-05-01,TX,512-111-1234,Personal,10000,A,A1,Rent,Verified,Refinance,232,62.33,12,112.62,1149.98,2,2,1343.43,5,3
-Xichao,C,11,10,444,310,1992-05-01,TX,512-111-1234,Personal,10000,A,A1,Rent,Verified,Refinance,232,62.33,12,112.62,1149.98,2,2,1343.43,5,3
-Sireta,R,14,12,888,310,1992-05-01,TX,512-111-1234,Personal,10000,A,A1,Rent,Verified,Refinance,232,62.33,12,112.62,1149.98,2,2,1343.43,5,3
-Paul,B,12.3,24,797,302,1992-05-01,TX,512-111-1234,Personal,10000,A,A1,Rent,Verified,Refinance,232,62.33,12,112.62,1149.98,2,2,1343.43,5,3
-Mary,M,10,36,932,290,1992-05-01,TX,512-111-1234,Personal,10000,A,A1,Rent,Verified,Refinance,232,62.33,12,112.62,1149.98,2,2,1343.43,5,3
+﻿First_Name,Last_Name,Interest_Rate,Term,FICO_Score,Installment,Loan_Amount,Public_Record_Bankruptcies,Debt_to_Income_Ratio,Employment_Length,Log_Annual_Income
+Ryan,Bellisimo,12,36,778,310,10000,2,62.33,2,4.5
+Khyati,G,10,25,655,310,33333,4,62.33,2,4.6
+Xichao,C,11,10,444,310,60000,5,62.33,2,3.4
+Sireta,R,14,12,888,310,40000,1,62.33,2,2.3
+Paul,B,12.3,24,797,302,12000,5,62.33,2,5.2
+Mary,M,10,36,932,290,10000,6,62.33,2,5

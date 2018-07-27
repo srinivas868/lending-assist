@@ -131,7 +131,7 @@ class Dashboard extends Component {
                   <Button color="primary" href="/#/applications/add" style={{float:'right'}} size="lg">Add new application</Button><br/><br/><br/>
                 </Col>
               </Row><br/>
-              <BootstrapTable data={this.state.applications} striped hover pagination tableStyle={ { 'padding': '0.5rem' } } options={options} search={ true } multiColumnSearch={ true }>
+              <BootstrapTable data={this.state.applications} striped hover pagination options={options} search={ true } multiColumnSearch={ true }>
                  <TableHeaderColumn isKey dataField='Application_ID' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataSort>Application ID</TableHeaderColumn>
                  <TableHeaderColumn dataField='Risk_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ riskFormatter } dataSort>Risk Prediction (%)</TableHeaderColumn>
                  <TableHeaderColumn dataField='Full_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Name</TableHeaderColumn>

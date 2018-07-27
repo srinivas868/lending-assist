@@ -31,19 +31,14 @@ module.exports = function(app){
            //console.log(json);
            jsonArray.forEach(function(json){
              var query = "INSERT INTO Applicants_Info_Table(First_Name,Last_Name,Interest_Rate,Term,"
-                      +"FICO_Score,Installment,Address_State,Date_of_Birth,"
-                      +"Telephone_Number,Application_Type,Loan_Amount,Loan_Grade,Loan_Sub_Grade,Home_Ownership,"
-                      +"Verification_Status,Purpose,Public_Record_Bankruptcies,Debt_to_Income_Ratio,Open_Account,"
-                      +"Revolving_Utilization,Annual_Income,Total_Accounts,Employment_Length,Account_Now_Delinquent,Delinquent_Amount,Delinquent_2_Years) "
+                      +"FICO_Score,Installment,"
+                      +"Loan_Amount,"
+                      +"Public_Record_Bankruptcies,Debt_to_Income_Ratio,"
+                      +"Employment_Length,Log_Annual_Income) "
                       +"values('"+json.First_Name+"','"+json.Last_Name+"','"
-                      +json.Interest_Rate+"','"+json.Term+"','"+json.FICO_Score+"','"+json.Installment+"','"+json.Address_State+"','"
-                      +json.Date_of_Birth+"','"+json.Telephone_Number.replace(/-/g,'')+"','"
-                      +json.Application_Type+"','"+json.Loan_Amount+"','"+json.Loan_Grade+"','"
-                      +json.Loan_Sub_Grade[1]+"','"+json.Home_Ownership+"','"+json.Verification_Status+"','"
-                      +json.Purpose+"','"+json.Public_Record_Bankruptcies+"','"+json.Debt_to_Income_Ratio+"','"
-                      +json.Open_Account+"','"+json.Revolving_Utilization+"','"+json.Annual_Income+"','"
-                      +json.Total_Accounts+"','"+json.Employment_Length+"','"+json.Account_Now_Delinquent+"','"
-                      +json.Delinquent_Amount+"','"+json.Delinquent_2_Years+"')"
+                      +json.Interest_Rate+"','"+json.Term+"','"+json.FICO_Score+"','"+json.Installment+"','"+json.Loan_Amount+"','"
+                      +json.Public_Record_Bankruptcies+"','"+json.Debt_to_Income_Ratio+"','"+json.Employment_Length+"','"
+                      +json.Log_Annual_Income+"')"
 
              //saving to db
              dbConnection.connection.query(query, function (error,result) {

@@ -84,28 +84,22 @@ class WDS extends Component {
           </CardHeader>
           <CardBody>
             <Row>
-              <Col style={{width:'70%'}} col="12" xl className="mb-3 mb-xl-0">
+              <div style={{width:'80%'}}>
                 <p>Watson Discovery Services brings you all the relevant news from the industry, helping you perform more in-depth marekt research.</p>
-              </Col>
-              <Col style={{width:'30%'}} col="2" xl className="mb-3 mb-xl-0">
-                <Button color="primary" target="_blank" href="https://www.ibm.com/watson/services/discovery/" style={{float:'right'}} size="lg">Learn More About WDS</Button><br/><br/><br/>
-              </Col>
+              </div>
+              <div>
+                <Button color="primary" target="_blank" href="https://www.ibm.com/watson/services/discovery/" style={{float:'left'}} size="lg">Learn More About WDS</Button><br/><br/><br/>
+              </div>
             </Row>
             <div style={{'display': 'flex', 'justify-content': 'center'}}>
               <img style={{width:'15%',height:'15%'}} align="center" src={logo}/>
             </div><br/>
-            <Row>
+            <Row style={{width: '50%',margin: '0px auto'}}>
               <Form onSubmit={this.handleFormSubmit} method="post" encType="multipart/form-data" style={{display: 'contents'}}>
-                <Col style={{width:'95%'}} col="12" xl className="mb-3 mb-xl-0">
-                  <div style={{'display': 'flex', 'justify-content': 'center'}}>
-                  <Input type="text" id="query" name="query" placeholder="Search" required />
-                  </div>
-                </Col>
-                <Col style={{width:'5%'}} col="2" xl className="mb-3 mb-xl-0">
+                  <Input type="text" id="query" name="query" placeholder="Search" required style={{width: '90%'}}/>
                   <Button type="submit" style={{display: 'contents'}}>
-                    <i style={{'margin-top': '0.5rem'}} className="icon-magnifier icons font-2xl d-block"></i>
+                    <i style={{'margin-top': '0.5rem', float: 'left', 'margin-left': '1%'}} className="icon-magnifier icons font-2xl d-block"></i>
                   </Button>
-                </Col>
               </Form>
             </Row><br/>
             <Collapse isOpen={this.state.collapseResults}>

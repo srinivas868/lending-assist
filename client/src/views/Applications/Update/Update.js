@@ -193,7 +193,7 @@ class Update extends Component {
                         <FormText className="help-block">For example: 4.6</FormText>
                       </Col>
                     </FormGroup>
-                    <FormGroup row>
+                    {/*<FormGroup row>
                       <Col md="4">
                         <Label htmlFor="select">Grade</Label>
                       </Col>
@@ -295,7 +295,7 @@ class Update extends Component {
                           </Input>
                         ))}
                       </Col>
-                    </FormGroup>
+                    </FormGroup>*/}
                     <FormGroup row>
                       <Col md="4">
                         <Label htmlFor="text-input">Public record bankruptcies</Label>
@@ -321,7 +321,7 @@ class Update extends Component {
                         ))}
                       </Col>
                     </FormGroup>
-                    <FormGroup row>
+                    {/*<FormGroup row>
                       <Col md="4">
                         <Label htmlFor="text-input">Number of open accounts</Label>
                       </Col>
@@ -372,7 +372,7 @@ class Update extends Component {
                           <Input type="text" id="total-accounts" defaultValue={application.Total_Accounts} name="total_accounts" placeholder="Enter a number" />
                         ))}
                       </Col>
-                    </FormGroup>
+                    </FormGroup>*/}
                     <FormGroup row>
                       <Col md="4">
                         <Label htmlFor="text-input">Employment length</Label>
@@ -388,7 +388,7 @@ class Update extends Component {
                         ))}
                       </Col>
                     </FormGroup>
-                    <FormGroup row>
+                    {/*<FormGroup row>
                       <Col md="4">
                         <Label htmlFor="text-input">Account now delinquent</Label>
                       </Col>
@@ -417,7 +417,7 @@ class Update extends Component {
                           <Input type="text" id="delinquent-2-years" defaultValue={application.Delinquent_2_Years} name="delinquent_2_years" placeholder="Enter a number" />
                         ))}
                       </Col>
-                    </FormGroup>
+                    </FormGroup>*/}
                 </CardBody>
                 <CardFooter>
                   <Row className="align-items-center">
