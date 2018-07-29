@@ -480,7 +480,7 @@ class Add extends Component {
                       </Form><br/>
                     </Collapse>
                     <Collapse isOpen={this.state.collapseUploadPreview}>
-                      <p><b>Upload Preview</b></p>
+                      <p><b>Uploaded Applications</b></p>
                       <BootstrapTable data={this.state.applications} striped hover pagination options={options} headerStyle={ { 'font-size': '13px' } }>
                          <TableHeaderColumn dataField='First_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataSort>Name</TableHeaderColumn>
                          <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataSort>Loan Amount ($)</TableHeaderColumn>
