@@ -21,11 +21,19 @@ const app = express();
 //mysql connection
 // Connect to MySQL on start
 var mysql = require('mysql');
+// var connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : 'ibmintern@2018',
+//   database : 'LendingAssist'
+// });
+// var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'ibmintern@2018',
-  database : 'LendingAssist'
+ host     : 'sl-us-south-1-portal.29.dblayer.com',
+ user     : 'interns',
+ password : 'ibmintern',
+ database : 'Loan_Application',
+ port     : 47143,
 });
 
 connection.connect(function(err) {
@@ -99,7 +107,7 @@ saveFileController(app)
 formSubmitController(app)
 riskPredictionController(app)
 // start app
-app.listen(5000, (error) => {
+app.listen(5001, (error) => {
   if (!error) {
     console.log('App is running on port: 5000'); // eslint-disable-line
   }
