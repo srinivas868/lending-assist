@@ -21,13 +21,20 @@ const app = express();
 //mysql connection
 // Connect to MySQL on start
 var mysql = require('mysql');
+// var connection = mysql.createConnection({
+//   host     : 'localhost',
+//   user     : 'root',
+//   password : 'ibmintern@2018',
+//   database : 'LendingAssist'
+// });
+// var mysql = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'ibmintern@2018',
-  database : 'LendingAssist'
+ host     : 'sl-us-south-1-portal.29.dblayer.com',
+ user     : 'interns',
+ password : 'ibmintern',
+ database : 'Loan_Application',
+ port     : 47143,
 });
-
 connection.connect(function(err) {
     if (err) {
       console.error('error connecting: ' + err.stack)
@@ -37,6 +44,49 @@ connection.connect(function(err) {
 })
 
 dbConnection.connection = connection
+
+//middle ware for authentication
+var passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    //test
+    console.log(password);
+    dbConnection.connection.query("SELECT * FROM users WHERE username ='" +username+ "'", function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  dbConnection.connection.query("SELECT * FROM users WHERE user_id ='" +id+ "'", function (err, user) {
+    done(err, user);
+  });
+});
+
+// router.use(function (req, res, next) {
+//   console.log('Time:', Date.now())
+//   next()
+// })
+app.use(passport.authenticate('local', {
+  failureRedirect: '/login' ,
+  failureFlash: true }))
+
 
 app.get('/', function(req,res){
   res.sendFile(__dirname+'/client/src/index.html');
@@ -64,7 +114,7 @@ app.get('/api/applications', function(req,res){
 app.post('/api/applications/profile', function(req,res){
   var profileId = req.body.profileId
   //var profileId = 1
-  //console.log('received ',profileId)
+  console.log('received ',profileId)
   dbConnection.connection.query("SELECT * from Applicants_Info_Table where Application_ID='"+profileId+"'", function (error, results, fields) {
     if (error) throw error;
     console.log('Profile: ', results);
@@ -99,9 +149,9 @@ saveFileController(app)
 formSubmitController(app)
 riskPredictionController(app)
 // start app
-app.listen(5000, (error) => {
+app.listen(5002, (error) => {
   if (!error) {
-    console.log('App is running on port: 5000'); // eslint-disable-line
+    console.log('App is running on port: 3000'); // eslint-disable-line
   }
 });
 
