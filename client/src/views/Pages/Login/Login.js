@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Form } from 'reactstrap';
+
 
 class Login extends Component {
+
+  // Login page event
+    handleLogin(event){
+      event.preventDefault()
+      const data = new FormData(event.target)
+      fetch('/api/add/login', {
+          method: 'POST',
+          body: data,
+          }).then((response) => {
+          response.json().then((body) => {
+            //alert("Submit "+body.profileId)
+            if (body.success == 'true'){
+              window.location.href = '/#/dashboard'
+            }
+            else{
+              alert("Login Failed. Please try again")
+              window.location.href = '/#/login'
+            }
+          });
+        });
+    }
+
   render() {
     return (
       <div className="app flex-row align-items-center">
@@ -9,6 +32,7 @@ class Login extends Component {
           <Row className="justify-content-center">
             <Col md="8">
               <CardGroup>
+              <Form onSubmit={this.handleLogin} method="post" encType="multipart/form-data" className="form-horizontal">
                 <Card className="p-4">
                   <CardBody>
                     <h1>Login</h1>
@@ -19,7 +43,7 @@ class Login extends Component {
                           <i className="icon-user"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" placeholder="Username" />
+                      <Input type="text" placeholder="Username" name="username"/>
                     </InputGroup>
                     <InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
@@ -27,7 +51,7 @@ class Login extends Component {
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password" />
+                      <Input type="password" placeholder="Password" name="password" />
                     </InputGroup>
                     <Row>
                       <Col xs="6">
@@ -39,16 +63,7 @@ class Login extends Component {
                     </Row>
                   </CardBody>
                 </Card>
-                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
-                  <CardBody className="text-center">
-                    <div>
-                      <h2>Sign up</h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                      <Button color="primary" className="mt-3" active>Register Now!</Button>
-                    </div>
-                  </CardBody>
-                </Card>
+                </Form>
               </CardGroup>
             </Col>
           </Row>

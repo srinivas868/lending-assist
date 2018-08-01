@@ -29,6 +29,31 @@ module.exports = function(app){
     })
   })
 
+  //For login part
+    app.post('/api/add/login', function(req,res){
+      console.log("Login request received");
+      var query = "SELECT Email_Address, Password FROM User_Information_Table WHERE Email_Address = '"
+                    +req.body.username+"' AND Password = '"+req.body.password +"'"
+
+
+      query = query.replace(/undefined/g,'')
+      console.log('query ',query)
+      //saving to db
+      dbConnection.connection.query(query, function (error, results) {
+          if (error) throw error;
+          if (results.length >= 1){
+            console.log("IF part login")
+            res.json({"success":"true"})
+          }
+          else{
+            console.log("ELSE part login")
+            res.json({"success":"false"})
+          }
+          console.log('Saved');
+      })
+    })
+
+
   app.post('/api/update/form-submit', function(req,res){
     console.log("Update form submit request received");
     if(req.body.annual_income > 0){
