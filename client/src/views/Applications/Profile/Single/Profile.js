@@ -379,7 +379,10 @@ class Profile extends Component {
                       <Table responsive>
                         <tbody>
                           <tr>
-                            <td><strong>Risk Prediction </strong></td>
+                            <td>
+                              <strong>Risk Prediction </strong><br/><b/>
+                              <p>There is a {this.state.risk_score}% chance this loan will be charged-off</p>
+                            </td>
                             <td>
                               <div style={{float:'left'}}><p style={{'font-size': 'small'}}><b>Good</b></p></div>&nbsp;
                               <div style={{float:'right'}}><p style={{'font-size': 'small'}}><b>Risky</b></p></div>&nbsp;
@@ -387,7 +390,10 @@ class Profile extends Component {
                             </td>
                           </tr>
                           <tr>
-                            <td><strong>ROI </strong></td>
+                            <td>
+                              <strong>ROI </strong>
+                             <p>You will receive {this.state.roi}% on investment</p> 
+                             </td>
                             <td align="center"><b>{this.state.roi}%</b></td>
                           </tr>
                         </tbody>
@@ -425,6 +431,7 @@ class Profile extends Component {
                       </Form>
                     </Collapse>
                     <Collapse isOpen={this.state.collapseCommentsContent}>
+                      <p style={{float:'left'}}>Click button on the right to update comments</p>
                       <Button color="primary" onClick={this.toggleComments} style={{float:'right'}} size="sm">Update comments</Button>
                       <Table responsive>
                         <tbody>
