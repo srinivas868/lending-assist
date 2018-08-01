@@ -124,7 +124,6 @@ class Add extends Component {
               </CardHeader>
               <br/>
               <CardBody>
-                <p>Test description</p>
                 <Nav tabs>
                   <NavItem>
                     <NavLink className={classnames({ active: this.state.activeTab === '1' })} onClick={() => { this.toggle('1'); }}>
@@ -198,7 +197,7 @@ class Add extends Component {
                               <InputGroupText>months</InputGroupText>
                             </InputGroupAddon>
                           </InputGroup>
-                          <FormText className="help-block">For example: 24 months</FormText>
+                          <FormText className="help-block">For example: 36 months</FormText>
                           </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -342,7 +341,7 @@ class Add extends Component {
                           </Col>
                           <Col xs="12" md="8">
                             <Input type="text" id="pub-rec-bankruptcies" name="pub_rec_bankruptcies" placeholder="Enter a number" />
-                            <FormText className="help-block">For example: 10</FormText>
+                            <FormText className="help-block">For example: 1</FormText>
                           </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -439,11 +438,11 @@ class Add extends Component {
                         </FormGroup>*/}
                         <FormGroup row>
                           <Col md="4">
-                            <Label htmlFor="text-input">Delinquent 2 Years</Label>
+                            <Label htmlFor="text-input">Delinquencies in past 2 Years</Label>
                           </Col>
                           <Col xs="12" md="8">
                             <Input type="number" id="delinquent-2-years" name="delinq_2yrs" placeholder="Enter a number" />
-                            <FormText className="help-block">For example: 3</FormText>
+                            <FormText className="help-block">For example: 2</FormText>
                           </Col>
                         </FormGroup>
                       </CardBody>
@@ -465,7 +464,7 @@ class Add extends Component {
                     <CardBody>
                         <FormGroup row>
                           <Col md="4">
-                            <Label htmlFor="file-input">Upload file</Label><i className="fa fa-cloud-upload fa-lg"></i>
+                            <Label htmlFor="file-input">Upload file</Label>
                           </Col>
                           <Col xs="12" md="8">
                             <Input type="file" id="file" name="file" />
