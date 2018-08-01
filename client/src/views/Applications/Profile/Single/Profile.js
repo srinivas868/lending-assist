@@ -33,12 +33,13 @@ import classnames from 'classnames';
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.setPredictionOutput = this.setPredictionOutput.bind(this);
+    //this.setPredictionOutput = this.setPredictionOutput.bind(this);
     this.toggleLoanInfo = this.toggleLoanInfo.bind(this);
     this.toggleLoanResults = this.toggleLoanResults.bind(this);
     this.handleRunPrediction = this.handleRunPrediction.bind(this);
     this.handleCommentsSubmit = this.handleCommentsSubmit.bind(this)
     this.toggleComments = this.toggleComments.bind(this)
+    this.showPrediction = this.showPrediction.bind(this)
     this.state = {
       collapseLoanInfo: false,
       collapseResults: false,
@@ -51,10 +52,11 @@ class Profile extends Component {
       profileId: this.props.match.params.id,
       activeTab: '1',
       risk_score: '',
+      roi:'',
       result:null,
       collapseCommentsForm: false,
       collapseCommentsContent: false,
-      comments: ''
+      comments: '',
     };
   }
 
@@ -73,9 +75,9 @@ class Profile extends Component {
       });
   }
 
-  setPredictionOutput(result, risk_score) {
+  showPrediction() {
     this.setState(
-      { result: result, risk_score: risk_score, collapseNoPrediction:false,collapsePrediction:true })
+      { collapseNoPrediction:false,collapsePrediction:true })
   }
 
   toggleLoanResults() {
@@ -99,12 +101,12 @@ class Profile extends Component {
         })
       .then((response) => {
       response.json().then((results) => {
-        this.setState({applications:results,risk_score:results[0].Risk_Score})
+        this.setState({applications:results,risk_score:results[0].Risk_Score,roi:results[0].ROI})
         this.setState({collapseCommentsContent:results[0].Comments==''?false:true})
         this.setState({collapseCommentsForm:results[0].Comments==''?true:false})
         this.setState({comments:results[0].Comments})
         console.log("Comments ",this.state.comments)
-        if(this.state.risk_score > 0){
+        if(this.state.risk_score > 0 && this.state.roi > 0){
           this.setState({collapseNoPrediction:false,collapsePrediction:true})
         }
         else{
@@ -119,17 +121,32 @@ class Profile extends Component {
     const data = new FormData()
     console.log("App ",this.state.applications[0])
     data.append('application', JSON.stringify( this.state.applications[0]))
+    var r_score = ''
+    var roi = ''
     fetch('/api/watson-studio/risk-prediction', {
         method: 'POST',
         body: data,
         }).then((response) => {
         response.json().then((body) => {
-          //console.log("Body ",body.result)
-          this.setPredictionOutput(body.result, body.risk_score)
-          //this.setState({ result: body.result })
-          this.toggle('2')
+          console.log("Body ",body.risk_score)
+          this.setState({risk_score:body.risk_score})
+          //r_score = body.risk_score
         });
       });
+
+      //roi
+    fetch('/api/watson-studio/roi-prediction', {
+        method: 'POST',
+        body: data,
+        }).then((response) => {
+        response.json().then((body) => {
+          console.log("Body ",body.roi)
+          this.setState({roi:body.roi})
+        });
+      });
+    //this.setPredictionOutput(r_score,roi)
+    this.showPrediction()
+    this.toggle('2')
     //window.location.href = '/#/applications/profile'
   }
 
@@ -224,6 +241,12 @@ class Profile extends Component {
                             <tr>
                               <td><strong>Installment :</strong></td>
                               <td>${application.Installment} per month</td>
+                            </tr>
+                          ))}
+                          {this.state.applications.map((application) => (
+                            <tr>
+                              <td><strong>Annual Income :</strong></td>
+                              <td>${application.Annual_Income}</td>
                             </tr>
                           ))}
                           {this.state.applications.map((application) => (
@@ -327,13 +350,13 @@ class Profile extends Component {
                               <td><strong>Delinquent amount :</strong></td>
                               <td>${application.Delinquent_Amount}</td>
                             </tr>
-                          ))}
+                          ))}*/}
                           {this.state.applications.map((application,index) => (
                             <tr key={index}>
                               <td><strong>Delinquent 2 Years :</strong></td>
                               <td>{application.Delinquent_2_Years}</td>
                             </tr>
-                          ))}*/}
+                          ))}
                       </tbody>
                     </Table>
                     <div align="center">
@@ -357,11 +380,15 @@ class Profile extends Component {
                         <tbody>
                           <tr>
                             <td><strong>Risk Prediction </strong></td>
-                            <td><Progress animated color="success" value={this.state.risk_score} style={{'margin-bottom': '0rem !important'}} className="mb-3"><b>{this.state.risk_score}%</b></Progress></td>
+                            <td>
+                              <div style={{float:'left'}}><p style={{'font-size': 'small'}}><b>Good</b></p></div>&nbsp;
+                              <div style={{float:'right'}}><p style={{'font-size': 'small'}}><b>Risky</b></p></div>&nbsp;
+                              <Progress animated color={this.state.risk_score > 30? 'danger': 'success'} value={this.state.risk_score} style={{'margin-bottom': '0rem'}} className="mb-3"><b>{this.state.risk_score}%</b></Progress>
+                            </td>
                           </tr>
                           <tr>
                             <td><strong>ROI </strong></td>
-                            <td align="center"></td>
+                            <td align="center"><b>{this.state.roi}%</b></td>
                           </tr>
                         </tbody>
                       </Table>

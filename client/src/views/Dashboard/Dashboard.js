@@ -48,7 +48,7 @@ function actionFormatter(cell, row) {
   console.log("Cell ",cell)
     return (
       <a href={"/#/applications/profile/"+cell} rel="noreferrer noopener" className="card-header-action">
-        <i className="fa fa-edit fa-lg"></i>
+        <i className="fa fa-user fa-lg"></i> View
       </a>
     );
 }
@@ -107,7 +107,7 @@ class Dashboard extends Component {
   componentDidMount(){
     fetch('/api/applications')
       .then(res => res.json())
-      .then(applications => this.setState({applications:applications}, () => console.log("Fetched ",applications)));
+      .then(applications => this.setState({applications:applications}, () => console.log("Fetched ")));
   }
 
   render() {
@@ -138,47 +138,11 @@ class Dashboard extends Component {
                  <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Loan Amount ($)</TableHeaderColumn>
                  <TableHeaderColumn dataField='Application_ID' thStyle={ { 'text-align': 'center',width:'10%' } } tdStyle={ { 'text-align': 'center',width:'10%' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
              </BootstrapTable>
-                {/*<Table id="example" hover responsive className="table-outline mb-0 d-none d-sm-table">
-                  <thead className="thead-light">
-                  <tr>
-                    <th className="text-center">Application Id</th>
-                    <th className="text-center">Name</th>
-                    <th className="text-center">Status</th>
-                    <th className="text-center">Risk(%)</th>
-                    <th className="text-center"></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {this.state.applications.map((application, index) => (
-                    <tr key={index}>
-                      <td className="text-center">
-                        <div>{application.Application_ID}</div>
-                      </td>
-                      <td className="text-center">
-                        <div className="clearfix">
-                            <strong>{application.First_Name} {application.Last_Name} </strong>
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="clearfix">
-                            <Badge color="success">Active</Badge>
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="clearfix">
-                            <strong>{application.Risk_Score}</strong>
-                        </div>
-                      </td>
-                      <td className="text-center">
-                          <a href={"/#/applications/profile/"+application.Application_ID} rel="noreferrer noopener" className="card-header-action">
-                            <i className="fa fa-edit fa-lg"></i>
-                          </a>
-                      </td>
-                    </tr>
-                  ))}
-                  </tbody>
-                </Table>*/}
-              </CardBody>
+             </CardBody>
+             <CardFooter>
+              <p>Research Industrial relevancy to your loan applications.</p>
+              <Button color="primary" href="/#/wds" size="lg">Explore Watson Discovery Service</Button>
+              </CardFooter>
             </Card>
           </Col>
         </Row>

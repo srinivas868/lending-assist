@@ -184,118 +184,20 @@ class Update extends Component {
                     </FormGroup>
                     <FormGroup row>
                       <Col md="4">
-                        <Label htmlFor="last-name">Log Annual Income</Label>
+                        <Label htmlFor="last-name">Annual Income</Label>
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="text" id="log-annual-income" defaultValue={application.Log_Annual_Income} name="log_annual_income" placeholder="Enter a number" />
+                          <InputGroup className="input-prepend">
+                            <InputGroupAddon addonType="prepend">
+                              <InputGroupText>$</InputGroupText>
+                            </InputGroupAddon>
+                            <Input type="text" id="annual-income" defaultValue={application.Annual_Income} name="annual_income" placeholder="Enter a number" />
+                          </InputGroup>
                         ))}
-                        <FormText className="help-block">For example: 4.6</FormText>
+                        <FormText className="help-block">For example: $80000</FormText>
                       </Col>
                     </FormGroup>
-                    {/*<FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="select">Grade</Label>
-                      </Col>
-                      <Col xs="3" md="3">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="grade" id="grade" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.grades.map((grade, index) => (
-                              <option key={index} selected={grade.code == application.Loan_Grade} value={grade.code}>{grade.code}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                      <Col md="2">
-                        <Label htmlFor="select">Sub Grade</Label>
-                      </Col>
-                      <Col xs="3" md="3">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="sub_grade" id="sub-grade" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.subGrades.map((subGrade, index) => (
-                              <option key={index} selected={subGrade.code === application.Loan_Sub_Grade[1]} value={subGrade.code}>{subGrade.code}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="select">Home Ownership</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="home_ownership" id="home-ownership" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.homeOwnerships.map((homeOwnership, index) => (
-                              <option key={index} selected={homeOwnership.code == application.Home_Ownership} value={homeOwnership.code}>{homeOwnership.code}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="select">Verification Status</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="verification_status" id="verification-status" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.verificationStatus.map((status, index) => (
-                              <option key={index} selected={status.code == application.Verification_Status} value={status.code}>{status.code}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="select">Purpose</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="purpose" id="purpose" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.purposes.map((purpose, index) => (
-                              <option key={index} selected={purpose.code == application.Purpose} value={purpose.code}>{purpose.code}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="select">State</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="state" id="state" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.stateCodes.map((stateCode, index) => (
-                              <option key={index} selected={stateCode.code == application.Address_State} value={stateCode.code}>{stateCode.name}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="select">Application type</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="select" name="application_type" id="application-type" bsSize="sm">
-                            <option value="" disabled selected>Please select</option>
-                            {application_info_dictionary.applicationTypes.map((type, index) => (
-                              <option key={index} selected={type.code == application.Application_Type} value={type.code}>{type.code}</option>
-                            ))}
-                          </Input>
-                        ))}
-                      </Col>
-                    </FormGroup>*/}
                     <FormGroup row>
                       <Col md="4">
                         <Label htmlFor="text-input">Public record bankruptcies</Label>
@@ -321,58 +223,6 @@ class Update extends Component {
                         ))}
                       </Col>
                     </FormGroup>
-                    {/*<FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="text-input">Number of open accounts</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="text" id="open-accounts" name="open_accounts" defaultValue={application.Open_Account} placeholder="Enter a number" />
-                        ))}
-                        <FormText className="help-block">For example: 2</FormText>
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="text-input">Revolving utilization</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <InputGroup>
-                            <Input type="text" id="revoling-utilization" defaultValue={application.Revolving_Utilization} name="revoling_utilization" placeholder="Enter a number" />
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>%</InputGroupText>
-                            </InputGroupAddon>
-                          </InputGroup>
-                        ))}
-                        <FormText className="help-block">For example: 23%</FormText>
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="text-input">Annual income</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <InputGroup>
-                          <InputGroupAddon addonType="prepend">
-                            <InputGroupText>$</InputGroupText>
-                          </InputGroupAddon>
-                            <Input type="text" id="annual-income" defaultValue={application.Annual_Income} name="annual_income" placeholder="Enter a number" />
-                          </InputGroup>
-                        ))}
-                      </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="text-input">Total number of accounts</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="text" id="total-accounts" defaultValue={application.Total_Accounts} name="total_accounts" placeholder="Enter a number" />
-                        ))}
-                      </Col>
-                    </FormGroup>*/}
                     <FormGroup row>
                       <Col md="4">
                         <Label htmlFor="text-input">Employment length</Label>
@@ -388,36 +238,19 @@ class Update extends Component {
                         ))}
                       </Col>
                     </FormGroup>
-                    {/*<FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="text-input">Account now delinquent</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="text" id="acc-now-delinq" defaultValue={application.Account_Now_Delinquent} name="acc_now_delinq" placeholder="Enter a number" />
-                        ))}
-                      </Col>
-                    </FormGroup>
                     <FormGroup row>
                       <Col md="4">
-                        <Label htmlFor="text-input">Delinquent amount</Label>
+                        <Label htmlFor="last-name">Delinquent 2 Years</Label>
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (
-                          <Input type="text" id="delinquent-amount" defaultValue={application.Delinquent_Amount} name="delinquent_amount" placeholder="Enter a number" />
+                          <InputGroup className="input-prepend">
+                            <Input type="text" id="annual-income" defaultValue={application.Delinquent_2_Years} name="delinq_2yrs" placeholder="Enter a number" />
+                          </InputGroup>
                         ))}
+                        <FormText className="help-block">For example: 3</FormText>
                       </Col>
                     </FormGroup>
-                    <FormGroup row>
-                      <Col md="4">
-                        <Label htmlFor="text-input">Delinquent 2 Years</Label>
-                      </Col>
-                      <Col xs="12" md="8">
-                        {this.state.applications.map((application,index) => (
-                          <Input type="text" id="delinquent-2-years" defaultValue={application.Delinquent_2_Years} name="delinquent_2_years" placeholder="Enter a number" />
-                        ))}
-                      </Col>
-                    </FormGroup>*/}
                 </CardBody>
                 <CardFooter>
                   <Row className="align-items-center">

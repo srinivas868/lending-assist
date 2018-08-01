@@ -226,11 +226,16 @@ class Add extends Component {
                         </FormGroup>
                         <FormGroup row>
                           <Col md="4">
-                            <Label htmlFor="last-name">Log Annual Income</Label>
+                            <Label htmlFor="last-name">Annual Income</Label>
                           </Col>
                           <Col xs="12" md="8">
-                            <Input type="text" id="log-annual-income" name="log_annual_income" placeholder="Enter a number" />
-                            <FormText className="help-block">For example: 4.6</FormText>
+                            <InputGroup className="input-prepend">
+                              <InputGroupAddon addonType="prepend">
+                                <InputGroupText>$</InputGroupText>
+                              </InputGroupAddon>
+                              <Input type="text" id="log-annual-income" name="annual_income" placeholder="Enter a number" />
+                            </InputGroup>
+                            <FormText className="help-block">For example: $80000</FormText>
                           </Col>
                         </FormGroup>
                         {/*<FormGroup row>
@@ -431,16 +436,16 @@ class Add extends Component {
                             </InputGroup>
                             <FormText className="help-block">For example: $1000</FormText>
                           </Col>
-                        </FormGroup>
+                        </FormGroup>*/}
                         <FormGroup row>
                           <Col md="4">
                             <Label htmlFor="text-input">Delinquent 2 Years</Label>
                           </Col>
                           <Col xs="12" md="8">
-                            <Input type="number" id="delinquent-2-years" name="delinquent_2_years" placeholder="Enter a number" />
+                            <Input type="number" id="delinquent-2-years" name="delinq_2yrs" placeholder="Enter a number" />
                             <FormText className="help-block">For example: 3</FormText>
                           </Col>
-                        </FormGroup>*/}
+                        </FormGroup>
                       </CardBody>
                       <CardFooter>
                         <Row className="align-items-center">
@@ -460,7 +465,7 @@ class Add extends Component {
                     <CardBody>
                         <FormGroup row>
                           <Col md="4">
-                            <Label htmlFor="file-input">Upload file</Label>
+                            <Label htmlFor="file-input">Upload file</Label><i className="fa fa-cloud-upload fa-lg"></i>
                           </Col>
                           <Col xs="12" md="8">
                             <Input type="file" id="file" name="file" />

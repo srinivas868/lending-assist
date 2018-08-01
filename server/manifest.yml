@@ -1,0 +1,15 @@
+---
+applications:
+- name: ibm-lending-assist-server
+  host: lending-assist-server
+  memory: 256M
+  instances: 2
+  disk_quota: 1024M
+  # services:
+  # - mean-starter-mongodb
+  # env:
+  #   NODE_ENV: cloud-foundry
+# declared-services:
+#   mean-starter-mongodb:
+#     label: compose-for-mongodb
+#     plan: Standard

@@ -84,11 +84,8 @@ class WDS extends Component {
           </CardHeader>
           <CardBody>
             <Row>
-              <div style={{width:'80%'}}>
+              <div style={{width:'80%','margin-left':'1%'}}>
                 <p>Watson Discovery Services brings you all the relevant news from the industry, helping you perform more in-depth marekt research.</p>
-              </div>
-              <div>
-                <Button color="primary" target="_blank" href="https://www.ibm.com/watson/services/discovery/" style={{float:'left'}} size="lg">Learn More About WDS</Button><br/><br/><br/>
               </div>
             </Row>
             <div style={{'display': 'flex', 'justify-content': 'center'}}>
@@ -109,10 +106,8 @@ class WDS extends Component {
               <div id="accordion">
                 {this.state.results.map((result,index) => (
                   <Card>
-                    <CardHeader id="headingOne">
-                      <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleStory(index)} aria-expanded={this.state.collapseStories[index]} aria-controls="collapseOne">
-                        <h5>{result.title}</h5>
-                      </Button>
+                    <CardHeader>
+                        <h5 style={{'text-align': 'center'}}>{result.title}</h5>
                     </CardHeader>
                     <Collapse isOpen={this.state.collapseStories[index]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
                       <CardBody>
