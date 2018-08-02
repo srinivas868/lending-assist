@@ -381,20 +381,20 @@ class Profile extends Component {
                           <tr>
                             <td>
                               <strong>Risk Prediction </strong><br/><b/>
-                              <p>There is a {this.state.risk_score}% chance this loan will be charged-off</p>
+                              <p>There is a <b>{this.state.risk_score}%</b> chance this loan will be charged-off</p>
                             </td>
-                            <td>
-                              <div style={{float:'left'}}><p style={{'font-size': 'small'}}><b>Good</b></p></div>&nbsp;
-                              <div style={{float:'right'}}><p style={{'font-size': 'small'}}><b>Risky</b></p></div>&nbsp;
-                              <Progress animated color={this.state.risk_score > 30? 'danger': 'success'} value={this.state.risk_score} style={{'margin-bottom': '0rem'}} className="mb-3"><b>{this.state.risk_score}%</b></Progress>
+                            <td style={{'padding-top': '5%'}}>
+                              <div style={{float:'left','margin-right':'5%'}}><p style={{'font-size': 'small'}}><b>Good</b></p></div>
+                              <div style={{float:'right','margin-left':'5%'}}><p style={{'font-size': 'small'}}><b>Risky</b></p></div>
+                              <Progress animated color={this.state.risk_score > 30? 'danger': 'success'} value={this.state.risk_score}><b>{this.state.risk_score}%</b></Progress>
                             </td>
                           </tr>
                           <tr>
                             <td>
                               <strong>ROI </strong>
-                             <p>You will receive {this.state.roi}% on investment</p> 
+                             <p>You will receive <b>{this.state.roi}%</b> on investment</p>
                              </td>
-                            <td align="center"><b>{this.state.roi}%</b></td>
+                            <td style={{'padding-top': '5%'}} align="center"><b>{this.state.roi}%</b></td>
                           </tr>
                         </tbody>
                       </Table>

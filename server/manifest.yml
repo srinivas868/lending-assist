@@ -1,9 +1,9 @@
 ---
 applications:
-- name: ibm-lending-assist-server
+- name: lending-assist-server
   host: lending-assist-server
-  memory: 256M
-  instances: 2
+  memory: 1024M
+  instances: 1
   disk_quota: 1024M
   # services:
   # - mean-starter-mongodb

@@ -100,7 +100,7 @@ app.post('/api/applications/profile', function(req,res){
   //var profileId = 1
   //console.log('received ',profileId)
   dbConnection.connection.query("SELECT * from Applicants_Info_Table where Application_ID='"+profileId+"'", function (error, results, fields) {
-    if (error) throw error;
+    if (error) {console.log("Error while retrieving profile -->> ",error)}
     console.log('Profile: ', results);
     res.json(results);
   });
@@ -134,9 +134,9 @@ formSubmitController(app)
 riskPredictionController(app)
 roiPredictionController(app)
 // start app
-app.listen(5000, (error) => {
+app.listen(8080, (error) => {
   if (!error) {
-    console.log('App is running on port: 5000'); // eslint-disable-line
+    console.log('App is running on port: 8080'); // eslint-disable-line
   }
 });
 

@@ -87,9 +87,14 @@ class Add extends Component {
         body: data,
         }).then((response) => {
         response.json().then((body) => {
-          this.toggleUploadPreview()
-          this.setApplicationsData(body.applications)
-          alert("File submitted successfully!")
+          if(body.success == 'true'){
+            this.toggleUploadPreview()
+            this.setApplicationsData(body.applications)
+            alert("File submitted successfully!")
+          }
+          else{
+            alert("Bad file!")
+          }
           //console.log("Upload fetched",body.applications)
         });
       });

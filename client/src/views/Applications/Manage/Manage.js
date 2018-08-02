@@ -34,8 +34,35 @@ function actionFormatter(cell, row) {
   //console.log("Cell ",cell)
     return (
       <a href={"/#/applications/profile/"+cell} rel="noreferrer noopener" className="card-header-action">
-        <i className="fa fa-edit fa-lg"></i>
+        View <i className="fa fa-send-o fa-lg"></i>
       </a>
+    );
+}
+
+function moneyFormatter(cell, row) {
+  console.log("Cell ",cell)
+    return (
+      <div>${cell}</div>
+    );
+}
+
+function roiFormatter(cell, row) {
+  console.log("Cell ",cell)
+  if(cell === null)
+    return ('Not yet predicted')
+  else
+    return (
+      <div>{cell}%</div>
+    );
+}
+
+function percentFormatter(cell, row) {
+  console.log("Cell ",cell)
+  if(cell === null)
+    return ('Not available')
+  else
+    return (
+      <div>{cell}%</div>
     );
 }
 
@@ -46,11 +73,11 @@ function riskFormatter(cell, row) {
   {
     if(cell < 30)
       return (
-        <Progress animated color="success" value={cell} style={{'margin-bottom': '0rem !important'}} className="mb-3"><b>{cell}%</b></Progress>
+        <Progress animated color="success" value={cell}><b>{cell}%</b></Progress>
       )
     else
       return (
-        <Progress animated color="danger" value={cell} className="mb-3"><b>{cell}%</b></Progress>
+        <Progress animated color="danger" value={cell}><b>{cell}%</b></Progress>
       )
   }
 }
@@ -108,16 +135,17 @@ class Manage extends Component {
       <div className="animated fadeIn">
         <Card>
           <CardHeader>
-            <Button color="primary" onClick={this.togglePending} style={{ marginBottom: '1rem' }}>Show pending applications</Button>
+            <p>All loan applications need to be predicted</p>
+            <Button color="primary" onClick={this.togglePending} style={{ marginBottom: '1rem' }}>Show applications</Button>
           </CardHeader>
           <Collapse isOpen={this.state.collapsePending}>
             <CardBody>
               <BootstrapTable data={this.state.pendingApplications} striped hover pagination options={options}>
                  <TableHeaderColumn dataField='Full_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Name</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Loan Amount ($)</TableHeaderColumn>
+                 <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataFormat={ moneyFormatter } dataSort>Loan Amount</TableHeaderColumn>
                  <TableHeaderColumn dataField='FICO_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataSort>FICO Score</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Interest_Rate' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Interest Rate (%)</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Term' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Term</TableHeaderColumn>
+                 <TableHeaderColumn dataField='Interest_Rate' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataFormat={ percentFormatter } dataSort>Interest Rate</TableHeaderColumn>
+                 <TableHeaderColumn dataField='Term' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Term (months)</TableHeaderColumn>
                  <TableHeaderColumn isKey dataField='Application_ID' thStyle={ { 'text-align': 'center',width:'10%' } } tdStyle={ { 'text-align': 'center',width:'10%' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
              </BootstrapTable>
             </CardBody>
@@ -125,17 +153,19 @@ class Manage extends Component {
         </Card>
         <Card>
           <CardHeader>
-            <Button color="primary" onClick={this.toggleCompleted} style={{ marginBottom: '1rem' }}>Show all applications</Button>
+            <p>All loan applications completed prediction</p>
+            <Button color="primary" onClick={this.toggleCompleted} style={{ marginBottom: '1rem' }}>Show applications</Button>
           </CardHeader>
           <Collapse isOpen={this.state.collapseCompleted}>
             <CardBody>
             <BootstrapTable data={this.state.completedApplications} striped hover pagination options={options}>
                <TableHeaderColumn dataField='Full_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Name</TableHeaderColumn>
-               <TableHeaderColumn dataField='Risk_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ riskFormatter } dataSort>Risk Prediction (%)</TableHeaderColumn>
-               <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Loan Amount ($)</TableHeaderColumn>
+               <TableHeaderColumn dataField='Risk_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ riskFormatter } dataSort>Risk Prediction</TableHeaderColumn>
+               <TableHeaderColumn dataField='ROI' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ roiFormatter } dataSort>Return on Investment</TableHeaderColumn>
+               <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataFormat={ moneyFormatter } dataSort>Loan Amount</TableHeaderColumn>
                <TableHeaderColumn dataField='FICO_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataSort>FICO Score</TableHeaderColumn>
-               <TableHeaderColumn dataField='Interest_Rate' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Interest Rate (%)</TableHeaderColumn>
-               <TableHeaderColumn dataField='Term' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Term</TableHeaderColumn>
+               <TableHeaderColumn dataField='Interest_Rate' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataFormat={ percentFormatter } dataSort>Interest Rate</TableHeaderColumn>
+               <TableHeaderColumn dataField='Term' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Term (months)</TableHeaderColumn>
                <TableHeaderColumn isKey dataField='Application_ID' thStyle={ { 'text-align': 'center',width:'10%' } } tdStyle={ { 'text-align': 'center',width:'10%' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
            </BootstrapTable>
             </CardBody>

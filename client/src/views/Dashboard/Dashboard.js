@@ -48,8 +48,25 @@ function actionFormatter(cell, row) {
   console.log("Cell ",cell)
     return (
       <a href={"/#/applications/profile/"+cell} rel="noreferrer noopener" className="card-header-action">
-        <i className="fa fa-user fa-lg"></i> View
+        View <i className="fa fa-send-o fa-lg"></i>
       </a>
+    );
+}
+
+function moneyFormatter(cell, row) {
+  console.log("Cell ",cell)
+    return (
+      <div>${cell}</div>
+    );
+}
+
+function roiFormatter(cell, row) {
+  console.log("Cell ",cell)
+  if(cell === null)
+    return ('Not yet predicted')
+  else
+    return (
+      <div>{cell}%</div>
     );
 }
 
@@ -60,11 +77,11 @@ function riskFormatter(cell, row) {
   {
     if(cell < 30)
       return (
-        <Progress animated color="success" value={cell} style={{'margin-bottom': '0rem !important'}} className="mb-3"><b>{cell}%</b></Progress>
+        <Progress animated color="success" value={cell}><b>{cell}%</b></Progress>
       )
     else
       return (
-        <Progress animated color="danger" value={cell} className="mb-3"><b>{cell}%</b></Progress>
+        <Progress animated color="danger" value={cell}><b>{cell}%</b></Progress>
       )
   }
 }
@@ -132,11 +149,11 @@ class Dashboard extends Component {
                 </Col>
               </Row><br/>
               <BootstrapTable data={this.state.applications} striped hover pagination options={options} search={ true } multiColumnSearch={ true }>
-                 <TableHeaderColumn isKey dataField='Application_ID' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataSort>Application ID</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Risk_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ riskFormatter } dataSort>Risk Prediction (%)</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Full_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Name</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Loan Amount ($)</TableHeaderColumn>
-                 <TableHeaderColumn dataField='Application_ID' thStyle={ { 'text-align': 'center',width:'10%' } } tdStyle={ { 'text-align': 'center',width:'10%' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
+                <TableHeaderColumn dataField='Full_Name' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataSort>Name</TableHeaderColumn>
+                 <TableHeaderColumn dataField='Risk_Score' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center' } } dataFormat={ riskFormatter } dataSort>Risk Prediction</TableHeaderColumn>
+                 <TableHeaderColumn dataField='ROI' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataFormat={ roiFormatter } dataSort>Return on Investment</TableHeaderColumn>
+                 <TableHeaderColumn dataField='Loan_Amount' thStyle={ { 'text-align': 'center' } } tdStyle={ { 'text-align': 'center'} } dataFormat={ moneyFormatter } dataSort>Loan Amount</TableHeaderColumn>
+                 <TableHeaderColumn isKey dataField='Application_ID' thStyle={ { 'text-align': 'center',width:'10%' } } tdStyle={ { 'text-align': 'center',width:'10%' } } dataFormat={ actionFormatter } dataSort></TableHeaderColumn>
              </BootstrapTable>
              </CardBody>
              <CardFooter>

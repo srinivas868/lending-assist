@@ -5,12 +5,12 @@ module.exports = function(app){
   var dbConnection = require('../util/DbConnection')
 
   app.post('/api/upload-file', function(req,res){
-    console.log("File upload request received", req);
+    //console.log("File upload request received", req);
     var fileName = req.files.file.name
     var csvFile = req.files.file
     var csvFilePath = './temp/'+fileName
     var ext = fileName.substring(fileName.indexOf('.'));
-    console.log('ext',ext)
+    //console.log('ext',ext)
     if(ext != '.csv'){
        return res.status(500).send('File not supported');
      }
@@ -19,20 +19,23 @@ module.exports = function(app){
       if (err) {
         return res.status(500).send('Error while moving file');
       }
-      console.log('File moved')
+      //console.log('File moved')
     });
 
     //convert csv to json/Save to db
     dbConnection.connection.beginTransaction(function(err) {
-      if (err) { throw err; }
+      if (err) {
+        console.log("Error while updating comments -->> ",error)
+        res.json({'success':'false'})
+        return
+      }
       csv()
          .fromFile(csvFilePath)
          .then((jsonArray)=>{
            //console.log(json);
            jsonArray.forEach(function(json){
-             if(json.Annual_income > 0){
-               log_annual_income = Math.log10(json.Annual_Income)
-             }
+             log_annual_income = Math.log10(Number.parseInt(json.Annual_Income)).toFixed(2)
+             console.log("log_annual_income ",log_annual_income)
              var query = "INSERT INTO Applicants_Info_Table(First_Name,Last_Name,Interest_Rate,Term,"
                       +"FICO_Score,Installment,"
                       +"Loan_Amount,"
@@ -41,11 +44,16 @@ module.exports = function(app){
                       +"values('"+json.First_Name+"','"+json.Last_Name+"','"
                       +json.Interest_Rate+"','"+json.Term+"','"+json.FICO_Score+"','"+json.Installment+"','"+json.Loan_Amount+"','"
                       +json.Public_Record_Bankruptcies+"','"+json.Debt_to_Income_Ratio+"','"+json.Employment_Length+"','"
-                      +json.Annual_Income+"','"+json.Log_Annual_Income+"','"+json.Delinquent_2_Years+"')"
-
+                      +json.Annual_Income+"','"+log_annual_income+"','"+json.Delinquent_2_Years+"')"
+             query = query.replace(/undefined/g,'')
+             console.log("query ",query)
              //saving to db
              dbConnection.connection.query(query, function (error,result) {
-               if (error) throw error;
+               if (error) {
+                 console.log("Error -->> ",error)
+                 res.json({'success':'false'})
+                 return
+               }
                console.log('Saved')
                json['Application_ID'] = result.insertId
              })
@@ -56,8 +64,9 @@ module.exports = function(app){
               return dbConnection.connection.rollback(function() {
                 throw err;
               });
+              res.json({'success':'false'})
             }
-            res.json({'applications':jsonArray})
+            res.json({'applications':jsonArray,'success':'true'})
             console.log('success!');
           });
       })

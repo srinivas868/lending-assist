@@ -80,12 +80,12 @@ class WDS extends Component {
         <div className="animated fadeIn">
         <Card>
           <CardHeader>
-            <h1>Watson Discovery Services</h1>
+            <h1>Watson Discovery Service</h1>
           </CardHeader>
           <CardBody>
             <Row>
               <div style={{width:'80%','margin-left':'1%'}}>
-                <p>Watson Discovery Services brings you all the relevant news from the industry, helping you perform more in-depth marekt research.</p>
+                <p>Watson Discovery Service brings you all the relevant news from the industry, helping you perform more in-depth market research.</p>
               </div>
             </Row>
             <div style={{'display': 'flex', 'justify-content': 'center'}}>
@@ -135,24 +135,6 @@ class WDS extends Component {
               </CardBody>
             </Card>
             </Collapse>
-            {/*{this.state.results.map((result, index) => (
-              <Card>
-                <CardHeader id={"result"index}>
-                  <Button block color="link" className="text-left m-0 p-0" onClick={() => this.toggleAccordion(2)} aria-expanded={this.state.accordion[2]} aria-controls="collapseThree">
-                    {result.title}
-                  </Button>
-                </CardHeader>
-                <Collapse isOpen={this.state.collapseResults[2]} data-parent="#accordion" id="collapseThree">
-                  <CardBody>
-                    3. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non
-                    cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
-                    on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                    nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                    beer farm-to-table, raw denim aesthetic synth nesciunt you probably havent heard of them accusamus labore sustainable VHS.
-                  </CardBody>
-                </Collapse>
-              </Card>
-            ))}*/}
         </CardBody>
         </Card>
         </div>

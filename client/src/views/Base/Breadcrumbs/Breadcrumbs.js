@@ -18,7 +18,7 @@ class Breadcrumbs extends Component {
               </CardHeader>
               <CardBody>
                 <Breadcrumb>
-                  <BreadcrumbItem active>Home</BreadcrumbItem>
+                  <BreadcrumbItem active><i className="icon-home"></i>Home</BreadcrumbItem>
                 </Breadcrumb>
                 <Breadcrumb>
                   <BreadcrumbItem><a href="#">Home</a></BreadcrumbItem>

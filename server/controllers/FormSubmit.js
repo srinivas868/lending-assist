@@ -6,7 +6,7 @@ module.exports = function(app){
     console.log("Form submit request received");
     //test db DbConnection
     if(req.body.annual_income > 0){
-      log_annual_income = Math.log10(req.body.annual_income)
+      log_annual_income = Math.log10(req.body.annual_income).toFixed(2)
     }
     var query = "INSERT INTO Applicants_Info_Table(First_Name,Last_Name,"
              +"Loan_Amount,Public_Record_Bankruptcies,Debt_to_Income_Ratio,"
@@ -23,7 +23,7 @@ module.exports = function(app){
     console.log('query ',query)
     //saving to db
     dbConnection.connection.query(query, function (error, result) {
-        if (error) throw error;
+        if (error) {console.log("Error while adding application -->> ",error)}
         console.log('Saved');
         res.json({"profileId":result.insertId})
     })
@@ -40,7 +40,7 @@ module.exports = function(app){
       console.log('query ',query)
       //saving to db
       dbConnection.connection.query(query, function (error, results) {
-          if (error) throw error;
+          if (error) {console.log("Error -->> ",error)}
           if (results.length >= 1){
             console.log("IF part login")
             res.json({"success":"true"})
@@ -74,7 +74,7 @@ module.exports = function(app){
     console.log('query ',query)
     //update in db
     dbConnection.connection.query(query, function (error, result) {
-        if (error) throw error;
+        if (error) {console.log("Error while updating profile -->> ",error)}
         console.log('Saved');
         res.json({"profileId":req.body.application_id})
     })
@@ -84,10 +84,10 @@ module.exports = function(app){
     console.log("Comments form submit request received");
     var text = req.body.comments
     var query = "UPDATE Applicants_Info_Table SET Comments='"+text+"' WHERE Application_ID='"+req.body.application_id+"'"
-    query = query.replace(/undefined/g,'')
+    query = query.replace(/undefined/g,'').replace("'","''")
     //update in db
     dbConnection.connection.query(query, function (error, result) {
-        if (error) throw error;
+        if (error) {console.log("Error while updating comments -->> ",error)}
         console.log('Saved');
         res.json({"comments":text})
     })
