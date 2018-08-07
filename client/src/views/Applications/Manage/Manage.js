@@ -30,6 +30,8 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.js';
 
+var config = require('../../../config')
+
 function actionFormatter(cell, row) {
   //console.log("Cell ",cell)
     return (
@@ -115,11 +117,11 @@ class Manage extends Component {
   }
 
   componentDidMount(){
-    fetch('/api/pending-applications')
+    fetch(config.root_url+'/api/pending-applications')
       .then(res => res.json())
       .then(applications => this.setState({pendingApplications:applications}, () => console.log("Pending applications fetched ",applications)));
 
-      fetch('/api/completed-applications')
+      fetch(config.root_url+'/api/completed-applications')
         .then(res => res.json())
         .then(applications => this.setState({completedApplications:applications}, () => console.log("Applications fetched ")));
   }

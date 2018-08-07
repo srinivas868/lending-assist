@@ -1,9 +1,3 @@
-//import Express from 'express';
-// import mongoose from 'mongoose';
-// import routes from '../client/routes';
-// import serverConfig from './config';
-//var routes = require('../client/routes')
-
 var express = require('express')
 var serverConfig = require('./config')
 var fileUpload = require('express-fileupload');
@@ -20,20 +14,31 @@ const queryBuilder = require('./util/QueryBuilder')
 const app = express();
 
 //mysql connection
-// Connect to MySQL on start
-var mysql = require('mysql');
+// var mysql = require('mysql');
 // var connection = mysql.createConnection({
 //   host     : 'localhost',
 //   user     : 'root',
 //   password : 'ibmintern@2018',
 //   database : 'LendingAssist'
 // });
+// Connect to MySQL on start
+var mysql = require('mysql');
 var connection = mysql.createConnection({
   host     : 'sl-us-south-1-portal.29.dblayer.com',
   user     : 'interns',
   password : 'ibmintern',
   database : 'Loan_Application',
   port     : 47143,
+});
+
+//cross origin XMLHttpRequest Authorization
+app.use(function (req, res, next) {
+    //res.setHeader('Access-Control-Allow-Origin', 'https://lending-assist.mybluemix.net');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
 });
 
 connection.connect(function(err) {
@@ -133,6 +138,7 @@ saveFileController(app)
 formSubmitController(app)
 riskPredictionController(app)
 roiPredictionController(app)
+
 // start app
 app.listen(8080, (error) => {
   if (!error) {

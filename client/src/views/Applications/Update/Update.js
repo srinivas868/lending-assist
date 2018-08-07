@@ -25,7 +25,7 @@ import {
   Row,
 } from 'reactstrap';
 import application_info_dictionary from '../../../assets/application_info_dictionary.json';
-
+var config = require('../../../config')
 class Update extends Component {
   constructor(props) {
     super(props)
@@ -54,7 +54,7 @@ class Update extends Component {
     const data = new FormData()
     console.log("Mount ",this.state.profileId)
     data.append('profileId', this.state.profileId)
-    fetch('/api/applications/profile',{
+    fetch(config.root_url+'/api/applications/profile',{
         method: 'POST',
         body: data,
         })
@@ -65,7 +65,7 @@ class Update extends Component {
   handleFormSubmit(event){
     event.preventDefault()
     const data = new FormData(event.target)
-    fetch('/api/update/form-submit', {
+    fetch(config.root_url+'/api/update/form-submit', {
         method: 'POST',
         body: data,
         }).then((response) => {
@@ -240,7 +240,7 @@ class Update extends Component {
                     </FormGroup>
                     <FormGroup row>
                       <Col md="4">
-                        <Label htmlFor="last-name">Delinquent 2 Years</Label>
+                        <Label htmlFor="last-name">Delinquencies in past 2 Years</Label>
                       </Col>
                       <Col xs="12" md="8">
                         {this.state.applications.map((application,index) => (

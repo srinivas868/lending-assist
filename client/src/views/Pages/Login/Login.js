@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Card, CardBody, CardGroup, Col, Container, Input, InputGroup, InputGroupAddon, InputGroupText, Row, Form } from 'reactstrap';
-
+var config = require('../../../config')
 
 class Login extends Component {
 
@@ -8,7 +8,7 @@ class Login extends Component {
     handleLogin(event){
       event.preventDefault()
       const data = new FormData(event.target)
-      fetch('/api/add/login', {
+      fetch(config.root_url+'/api/add/login', {
           method: 'POST',
           body: data,
           }).then((response) => {
@@ -28,12 +28,9 @@ class Login extends Component {
   render() {
     return (
       <div className="app flex-row align-items-center">
-        <Container>
-          <Row className="justify-content-center">
-            <Col md="8">
-              <CardGroup>
+        <Container style={{width:'400px'}}>
+          <Card>
               <Form onSubmit={this.handleLogin} method="post" encType="multipart/form-data" className="form-horizontal">
-                <Card className="p-4">
                   <CardBody>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
@@ -62,11 +59,8 @@ class Login extends Component {
                       </Col>
                     </Row>
                   </CardBody>
-                </Card>
                 </Form>
-              </CardGroup>
-            </Col>
-          </Row>
+              </Card>
         </Container>
       </div>
     );

@@ -31,6 +31,8 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css';
 import '../../../../node_modules/react-bootstrap-table/dist/react-bootstrap-table.min.js';
 
+var config = require('../../../config')
+
 function actionFormatter(cell, row) {
   //console.log("Cell ",cell)
     return (
@@ -82,7 +84,7 @@ class Add extends Component {
     const data = new FormData(event.target);
     //console.log("Request ",data)
     //data.append('file', this.uploadInput[0]);
-    fetch('/api/upload-file', {
+    fetch(config.root_url+'/api/upload-file', {
         method: 'POST',
         body: data,
         }).then((response) => {
@@ -103,7 +105,7 @@ class Add extends Component {
   handleFormSubmit(event){
     event.preventDefault()
     const data = new FormData(event.target)
-    fetch('/api/add/form-submit', {
+    fetch(config.root_url+'/api/add/form-submit', {
         method: 'POST',
         body: data,
         }).then((response) => {

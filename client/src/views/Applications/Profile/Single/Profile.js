@@ -29,6 +29,7 @@ import {
 
 import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
+var config = require('../../../../config')
 
 class Profile extends Component {
   constructor(props) {
@@ -95,7 +96,7 @@ class Profile extends Component {
     const data = new FormData()
     console.log("Mount ",this.state.profileId)
     data.append('profileId', this.state.profileId)
-    fetch('/api/applications/profile',{
+    fetch(config.root_url+'/api/applications/profile',{
         method: 'POST',
         body: data,
         })
@@ -123,7 +124,7 @@ class Profile extends Component {
     data.append('application', JSON.stringify( this.state.applications[0]))
     var r_score = ''
     var roi = ''
-    fetch('/api/watson-studio/risk-prediction', {
+    fetch(config.root_url+'/api/watson-studio/risk-prediction', {
         method: 'POST',
         body: data,
         }).then((response) => {
@@ -135,7 +136,7 @@ class Profile extends Component {
       });
 
       //roi
-    fetch('/api/watson-studio/roi-prediction', {
+    fetch(config.root_url+'/api/watson-studio/roi-prediction', {
         method: 'POST',
         body: data,
         }).then((response) => {
@@ -154,7 +155,7 @@ class Profile extends Component {
     const data = new FormData(event.target)
     event.preventDefault()
     console.log("Handle ",data.comments)
-    fetch('/api/comments/form-submit', {
+    fetch(config.root_url+'/api/comments/form-submit', {
       method: 'POST',
       body: data,
       }).then((response) => {
@@ -353,7 +354,7 @@ class Profile extends Component {
                           ))}*/}
                           {this.state.applications.map((application,index) => (
                             <tr key={index}>
-                              <td><strong>Delinquent 2 Years :</strong></td>
+                              <td><strong>Delinquencies in past 2 Years :</strong></td>
                               <td>{application.Delinquent_2_Years}</td>
                             </tr>
                           ))}
@@ -391,8 +392,8 @@ class Profile extends Component {
                           </tr>
                           <tr>
                             <td>
-                              <strong>ROI </strong>
-                             <p>You will receive <b>{this.state.roi}%</b> on investment</p>
+                              <strong>Return on Investment </strong>
+                             <p>You will receive <b>{this.state.roi}%</b> return on investment</p>
                              </td>
                             <td style={{'padding-top': '5%'}} align="center"><b>{this.state.roi}%</b></td>
                           </tr>

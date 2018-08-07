@@ -17,7 +17,7 @@ export default {
     },
     {
       name: 'Logout',
-      url: '/',
+      url: '/login',
       icon: 'icon-logout',
     }
   ],

@@ -1,0 +1,16 @@
+---
+applications:
+- name: lending-assist
+  host: lending-assist
+  memory: 1024M
+  instances: 1
+  disk_quota: 1024M
+  buildpack: https://github.com/cloudfoundry-community/staticfile-buildpack.git
+  # services:
+  # - mean-starter-mongodb
+  # env:
+  #   NODE_ENV: cloud-foundry
+# declared-services:
+#   mean-starter-mongodb:
+#     label: compose-for-mongodb
+#     plan: Standard

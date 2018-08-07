@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table, Form, Button, Input,  ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Collapse} from 'reactstrap';
 import logo from '../../assets/img/wds_logo.png'
 
+var config = require('../../config')
+
 class WDS extends Component {
 
   constructor(props) {
@@ -40,21 +42,11 @@ class WDS extends Component {
     this.setState({results:searchOutput.results})
     console.log("Search ",this.state.searchOutput)
   }
-  // addStoryOutput(){
-  //   var anyBoxesChecked = new Array(numeroPerguntas).fill(false);
-  //   this.state.collapseStories.push(false)
-  // }
-
-  // showResults(){
-  //   this.setState({collapseResults: true})
-  // }
-
-
   handleFormSubmit(event){
     const data = new FormData(event.target)
     event.preventDefault()
     //console.log("App ",this.state.applications[0])
-    fetch('/api/wds/query', {
+    fetch(config.root_url+'/api/wds/query', {
         method: 'POST',
         body: data,
         }).then((response) => {
@@ -84,18 +76,18 @@ class WDS extends Component {
           </CardHeader>
           <CardBody>
             <Row>
-              <div style={{width:'80%','margin-left':'1%'}}>
+              <div style={{width:'80%','marginLeft':'1%'}}>
                 <p>Watson Discovery Service brings you all the relevant news from the industry, helping you perform more in-depth market research.</p>
               </div>
             </Row>
-            <div style={{'display': 'flex', 'justify-content': 'center'}}>
+            <div style={{'display': 'flex', 'justifyContent': 'center'}}>
               <img style={{width:'15%',height:'15%'}} align="center" src={logo}/>
             </div><br/>
             <Row style={{width: '50%',margin: '0px auto'}}>
               <Form onSubmit={this.handleFormSubmit} method="post" encType="multipart/form-data" style={{display: 'contents'}}>
                   <Input type="text" id="query" name="query" placeholder="Search" required style={{width: '90%'}}/>
                   <Button type="submit" style={{display: 'contents'}}>
-                    <i style={{'margin-top': '0.5rem', float: 'left', 'margin-left': '1%'}} className="icon-magnifier icons font-2xl d-block"></i>
+                    <i style={{'marginTop': '0.5rem', float: 'left', 'marginLeft': '1%'}} className="icon-magnifier icons font-2xl d-block"></i>
                   </Button>
               </Form>
             </Row><br/>
@@ -107,7 +99,7 @@ class WDS extends Component {
                 {this.state.results.map((result,index) => (
                   <Card>
                     <CardHeader>
-                        <h5 style={{'text-align': 'center'}}>{result.title}</h5>
+                        <h5 style={{'textAlign': 'center'}}>{result.title}</h5>
                     </CardHeader>
                     <Collapse isOpen={this.state.collapseStories[index]} data-parent="#accordion" id="collapseOne" aria-labelledby="headingOne">
                       <CardBody>
